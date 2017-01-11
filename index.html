@@ -1,0 +1,83 @@
+<!--
+  file-name: index.html
+  used-for: week 1 assignment of mindifire training
+  created-by: r s devi prasad
+  description: it is a html file for creating and validating form, creating table from
+  the form data and editing the data from the table.
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset = "utf-8"/>
+  <title>Week One</title>
+  <link type = "text/css" rel = "stylesheet" href = "assets/css/style.css" />
+  <link type = "text/css" rel = "stylesheet" href = "assets/vendors/bootstrap/css/bootstrap.min.css" />
+  </head>
+  <body>
+  <h1>Student Registration Form</h1>
+  <form class="form-horizontal" name="StudentForm" id="student-form" action="#" method="post">
+    <div id="applicant-details" class="form-group">
+        <h2>Applicant Details</h2>
+        <label for="name">Name: </label>
+        <input type="text" id="name" name="Name"/><span id="name-info"></span><br/>
+        <label for="category">Category: </label>
+        <select name="Category"  >
+          <option value="general">General</option>
+          <option value="others">Others</option>
+        </select><br/>
+        <label for="gender">Gender: </label>
+        <input type="radio" name="Gender" value="male" checked  >male
+        <input type="radio" name="Gender" value="female">female
+        <input type="radio" name="Gender" value="other">other<br/>
+        <label for="dob">D.O.B: </label>
+        <input type="date" id="dob" name="D.O.B"/><span id="dob-info"></span><br/>
+        <label for="age">Age: </label>
+        <input type="number" name="Age"/><br/>
+        <label for="nationality">Nationality: </label>
+        <input type="text" name="Nationality" id="nationality"/><span id="nation-info"></span><br/>
+        <label for="guardian">Guardian Name: </label>
+        <input type="text" name="Guardian" id="guardian"/><span id="guard-info"></span><br/>
+        <label for="relationship">Guardian Relation: </label>
+        <input type="checkbox" value="father" name="Relation" checked>Father
+        <input type="checkbox" value="mother" name="Relation">Mother
+        <input type="checkbox" value="guardian" name="Relation">Guardian<br/>
+        <label for="institute">Institute last attended: </label>
+        <input type="text" name="Institute"/><br/>
+      </div>
+      <div id="contact-info">
+        <h2>Communication Details</h2>
+        <label for="line1">Address Line 1: </label>
+        <input type="text" id="line1" name="address1"/><br/>
+        <label for="line2">Address Line 2: </label>
+        <input type="text" id="line2" name="address2"/><br/>
+        <label for="city">City: </label>
+        <input type="text" id="city" name="address3"/><br/>
+        <label for="state">State: </label>
+        <input type="text" id="state" name="address4"/><br/>
+        <label for="pin">Pincode: </label>
+        <input type="number" id="pin" name="address5"/><br/>
+        <label for="country">Country: </label>
+        <input type="text" id="country" name="address6"/><br/>
+        <label for="mail">E-mail: </label>
+        <input type="text" id="mail" name="user_mail"/><span id="minfo"></span><br/>
+        <label for="phone">Phone Number: </label>
+        <input type="tel" id="phone" name="contact"/><span id="cinfo"></span><br/>
+        <label for="idproof">ID Proof: </label>
+        <input type="text" id="idproof" name="proof"/><br/>
+        <label for="idproofnum">ID Proof Number: </label>
+        <input type="text" id="idproofnum" name="proof"/><br/>
+      </div>
+      <div class="button">
+        <button id = "sub-button" type="submit">Submit</button>
+        <button type="reset" >Reset</button>
+      </div>
+    </form>
+    
+    <table class="container" id="data">
+      
+    </table>
+    
+    <script type="text/javascript" src="assets/js/script.js"></script>
+  </body>
+</html>

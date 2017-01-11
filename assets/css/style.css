@@ -1,0 +1,103 @@
+/*
+  file-name: style.css
+  used-for: week 1 assignment of mindifire training
+  created-by: r s devi prasad
+  description: it is a css file for styling the elements of the html file
+*/
+
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+    font-weight: 200;
+}
+
+form {
+    width: 75%;
+    margin: 0 auto;
+    padding: 1em;
+    border: 1px solid #ccc;
+}
+
+form div {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: .5em;
+}
+
+form div + div {
+    margin-top: 1em;
+}
+
+form h2 {
+    margin: 0 0 .5em 1em;
+    font-weight: 100;
+}
+
+label {
+    width: 20%;
+    display: inline-block;
+    text-align: right;
+    margin-bottom: .5em;
+}
+
+select {
+    display: inline-block;
+}
+
+input, textarea {
+    font: 1em sans-serif;
+    width: 30%;
+    border: 1px solid #999;
+}
+
+input:focus, textarea:focus {
+    border-color: #000;
+}
+
+input[type=radio],input[type=checkbox] {
+    width: 20px;
+}
+
+textarea {
+    vertical-align: top;
+    height: 5em;
+    resize: vertical;
+}
+
+.button {
+    padding-left: 90px;
+}
+
+button {
+    margin-left: .5em;
+}
+
+.require:after {
+    content: "*:";
+    color: #ff0000;
+}
+
+span {
+    color: #ff0000;
+}
+
+span:before {
+    content: " ";
+}
+
+#data {
+    width: 72%;
+    float: left;
+    margin-left: 187px;
+    border: 1px solid #000;
+    margin-top: 15px;
+}
+
+#data td {
+    width: 15%;
+    border-right: 0.1em solid #000;
+}
