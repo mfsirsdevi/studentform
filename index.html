@@ -10,74 +10,178 @@
 <html>
   <head>
   <meta charset = "utf-8"/>
-  <title>Week One</title>
+  <title>Student Registration Form</title>
   <link type = "text/css" rel = "stylesheet" href = "assets/css/style.css" />
   <link type = "text/css" rel = "stylesheet" href = "assets/vendors/bootstrap/css/bootstrap.min.css" />
   </head>
   <body>
-  <h1>Student Registration Form</h1>
-  <form class="form-horizontal" name="StudentForm" id="student-form" action="#" method="post">
-    <div id="applicant-details" class="form-group">
-        <h2>Applicant Details</h2>
-        <label for="name">Name: </label>
-        <input type="text" id="name" name="Name"/><span id="name-info"></span><br/>
-        <label for="category">Category: </label>
-        <select name="Category"  >
-          <option value="general">General</option>
-          <option value="others">Others</option>
-        </select><br/>
-        <label for="gender">Gender: </label>
-        <input type="radio" name="Gender" value="male" checked  >male
-        <input type="radio" name="Gender" value="female">female
-        <input type="radio" name="Gender" value="other">other<br/>
-        <label for="dob">D.O.B: </label>
-        <input type="date" id="dob" name="D.O.B"/><span id="dob-info"></span><br/>
-        <label for="age">Age: </label>
-        <input type="number" name="Age"/><br/>
-        <label for="nationality">Nationality: </label>
-        <input type="text" name="Nationality" id="nationality"/><span id="nation-info"></span><br/>
-        <label for="guardian">Guardian Name: </label>
-        <input type="text" name="Guardian" id="guardian"/><span id="guard-info"></span><br/>
-        <label for="relationship">Guardian Relation: </label>
-        <input type="checkbox" value="father" name="Relation" checked>Father
-        <input type="checkbox" value="mother" name="Relation">Mother
-        <input type="checkbox" value="guardian" name="Relation">Guardian<br/>
-        <label for="institute">Institute last attended: </label>
-        <input type="text" name="Institute"/><br/>
-      </div>
-      <div id="contact-info">
-        <h2>Communication Details</h2>
-        <label for="line1">Address Line 1: </label>
-        <input type="text" id="line1" name="address1"/><br/>
-        <label for="line2">Address Line 2: </label>
-        <input type="text" id="line2" name="address2"/><br/>
-        <label for="city">City: </label>
-        <input type="text" id="city" name="address3"/><br/>
-        <label for="state">State: </label>
-        <input type="text" id="state" name="address4"/><br/>
-        <label for="pin">Pincode: </label>
-        <input type="number" id="pin" name="address5"/><br/>
-        <label for="country">Country: </label>
-        <input type="text" id="country" name="address6"/><br/>
-        <label for="mail">E-mail: </label>
-        <input type="text" id="mail" name="user_mail"/><span id="minfo"></span><br/>
-        <label for="phone">Phone Number: </label>
-        <input type="tel" id="phone" name="contact"/><span id="cinfo"></span><br/>
-        <label for="idproof">ID Proof: </label>
-        <input type="text" id="idproof" name="proof"/><br/>
-        <label for="idproofnum">ID Proof Number: </label>
-        <input type="text" id="idproofnum" name="proof"/><br/>
-      </div>
-      <div class="button">
-        <button id = "sub-button" type="submit">Submit</button>
-        <button type="reset" >Reset</button>
-      </div>
-    </form>
+    <div class="container">
+      <h1>Student Registration Form</h1>
+      <form class="form-horizontal" name="StudentForm" id="student-form" action="#" method="post">
+        <div id="applicant-details">
+          <h2>Applicant Details</h2>
+          <div class = "form-group">
+            <label for="name" class="col-sm-2 control-label">Name: </label>
+            <div class="col-sm-7">
+              <input type="text" id="name" class = "form-control" name="Name"/>
+            </div>
+            <div class="col-sm-3">
+            <span id="name-info"></span><br/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="category" class="col-sm-2 control-label">Category: </label>
+            <div class="col-sm-7">
+              <select class="form-control" name="Category"  >
+                <option value="general">General</option>
+                <option value="others">Others</option>
+              </select><br/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="gender" class="col-sm-2 control-label">Gender: </label>
+            <label class="radio-inline">
+              <input type="radio" name="Gender" value="male" checked>male
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="Gender" value="female">female
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="Gender" value="other">other<br/>
+            </label>
+          </div>
+          <div class="form-group">
+            <label for="dob" class="col-sm-2 control-label">D.O.B: </label>
+            <div class="col-sm-7">
+              <input type="date" id="dob" class="form-control" name="D.O.B"/>
+            </div>
+            <div class="col-sm-3">
+              <span id="dob-info"></span><br/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="age" class="col-sm-2 control-label">Age: </label>
+            <div class="col-sm-7">
+              <input type="number" class="form-control" name="Age"/><br/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="nationality" class="col-sm-2 control-label">Nationality: </label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="Nationality" id="nationality"/>
+            </div>
+            <div class="col-sm-3">
+              <span id="nation-info"></span><br/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="guardian" class="col-sm-2 control-label">Guardian Name: </label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="Guardian" id="guardian"/>
+            </div>
+            <div class="col-sm-3">
+              <span id="guard-info"></span><br/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="relationship" class="col-sm-2 control-label">Guardian Relation: </label>
+            <label class="checkbox-inline">
+              <input type="checkbox" value="father" name="Relation" checked>Father
+            </label>
+            <label class="checkbox-inline">
+              <input type="checkbox" value="mother" name="Relation">Mother
+            </label>
+            <label class="checkbox-inline">
+              <input type="checkbox" value="guardian" name="Relation">Guardian<br/>
+            </label>
+          </div>
+          <div class="form-group">
+            <label for="institute" class="col-sm-2 control-label">Institute last attended: </label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" name="Institute"/><br/>
+            </div>
+          </div>
+        </div>
+        <div id="contact-info">
+          <h2>Communication Details</h2>
+          <div class="form-group">
+            <label for="line1" class="col-sm-2 control-label">Address Line 1: </label>
+            <div class="col-sm-7">
+              <input type="text" id="line1" class="form-control" name="address1"/><br/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="line2" class="col-sm-2 control-label">Address Line 2: </label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" id="line2" name="address2"/><br/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="city" class="col-sm-2 control-label">City: </label>
+            <div class="col-sm-7">
+              <input type="text" id="city" class="form-control" name="address3"/><br/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="state" class="col-sm-2 control-label">State: </label>
+            <div class="col-sm-7">
+              <input type="text" id="state" class="form-control" name="address4"/><br/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="pin" class="col-sm-2 control-label">Pincode: </label>
+            <div class="col-sm-7">
+              <input type="number" id="pin" class="form-control" name="address5"/><br/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="country" class="col-sm-2 control-label">Country: </label>
+            <div class="col-sm-7">
+              <input type="text" id="country" class="form-control" name="address6"/><br/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="mail" class="col-sm-2 control-label">E-mail: </label>
+            <div class="col-sm-7">
+              <input type="text" id="mail" class="form-control" name="user_mail"/>
+            </div>
+            <div class="col-sm-3">
+              <span id="minfo"></span><br/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="phone" class="col-sm-2 control-label">Phone Number: </label>
+            <div class="col-sm-7">
+              <input type="tel" id="phone" class="form-control" name="contact"/>
+            </div>
+            <div class="col-sm-3">
+              <span id="cinfo"></span><br/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="idproof" class="col-sm-2 control-label">ID Proof: </label>
+            <div class="col-sm-7">
+              <input type="text" id="idproof" class="form-control" name="proof"/><br/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="idproofnum" class="col-sm-2 control-label">ID Proof Number: </label>
+            <div class="col-sm-7">
+              <input type="text" id="idproofnum" class="form-control" name="proof"/><br/>
+            </div>
+          </div>
+        </div>
+        <div id="form-btn">
+          <button class="btn btn-primary" id="sub-button" type="submit">Submit</button>
+          <button class="btn btn-danger" type="reset" >Reset</button>
+        </div>
+      </form>
     
-    <table class="container" id="data">
+      <table class="container" id="data">
       
-    </table>
+      </table>
     
-    <script type="text/javascript" src="assets/js/script.js"></script>
+      <script type="text/javascript" src="assets/js/script.js"></script>
+    </div>
   </body>
 </html>

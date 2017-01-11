@@ -17,19 +17,13 @@ h1 {
 }
 
 form {
-    width: 75%;
-    margin: 0 auto;
+    width: 100%;
     padding: 1em;
     border: 1px solid #ccc;
 }
 
-form div {
-    border-bottom: 1px solid #ccc;
-    padding-bottom: .5em;
-}
-
 form div + div {
-    margin-top: 1em;
+    margin-top: .1em;
 }
 
 form h2 {
@@ -37,6 +31,12 @@ form h2 {
     font-weight: 100;
 }
 
+#form-btn {
+    width: 50%;
+    margin: 0 auto;
+}
+
+/*
 label {
     width: 20%;
     display: inline-block;
@@ -75,11 +75,7 @@ textarea {
 button {
     margin-left: .5em;
 }
-
-.require:after {
-    content: "*:";
-    color: #ff0000;
-}
+*/
 
 span {
     color: #ff0000;
