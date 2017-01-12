@@ -6,7 +6,6 @@
   the form data and editing the data from the table.
 */
 
-// D.
 var mailid = document.getElementById("mail");
 var nam = document.getElementById("name");
 var dob = document.getElementById("dob");
@@ -31,7 +30,11 @@ submitButton.addEventListener("click", function(event){
 });
 
 /*
- *The following lines of code define the functions for validating the fields
+ * The following lines of code define the functions for validating the fields
+ */
+ 
+/*
+ * validate the name field by checking whether it is filled or empty
  */
 
 function validateName() {
@@ -43,6 +46,10 @@ function validateName() {
   document.getElementById("name-info").innerHTML = "";
 }
 
+
+/*
+ * Takes guardian field value and checks if it is empty or filled.
+ */
 function validateGuardian() {
   if(guardian.value === '') {
     document.getElementById("guard-info").innerHTML = "This field is empty";
@@ -122,7 +129,9 @@ function submitForm(e) {
     }
     inputIndex += 1;
   }
-}
+  location.href = "#";
+  location.href = "#data";
+ 
 
 /*
  * The function updates the rows of the table by converting td to input
