@@ -36,46 +36,6 @@ form h2 {
     margin: 0 auto;
 }
 
-/*
-label {
-    width: 20%;
-    display: inline-block;
-    text-align: right;
-    margin-bottom: .5em;
-}
-
-select {
-    display: inline-block;
-}
-
-input, textarea {
-    font: 1em sans-serif;
-    width: 30%;
-    border: 1px solid #999;
-}
-
-input:focus, textarea:focus {
-    border-color: #000;
-}
-
-input[type=radio],input[type=checkbox] {
-    width: 20px;
-}
-
-textarea {
-    vertical-align: top;
-    height: 5em;
-    resize: vertical;
-}
-
-.button {
-    padding-left: 90px;
-}
-
-button {
-    margin-left: .5em;
-}
-*/
 
 span {
     color: #ff0000;
@@ -85,15 +45,6 @@ span:before {
     content: " ";
 }
 
-#data {
-    width: 72%;
-    float: left;
-    margin-left: 187px;
-    border: 1px solid #000;
-    margin-top: 15px;
-}
-
-#data td {
-    width: 15%;
-    border-right: 0.1em solid #000;
+.hide {
+    display: none;
 }

@@ -6,148 +6,97 @@
   the form data and editing the data from the table.
 */
 
-var mailid = document.getElementById("mail");
-var nam = document.getElementById("name");
-var dob = document.getElementById("dob");
-var nation = document.getElementById("nationality");
-var guardian = document.getElementById("guardian");
-var phn = document.getElementById("phone");
-var submitButton = document.getElementById("sub-button");
+$("document").ready(function(){ 
+  $("#name").on("input",function () {
+    if($("#name").val() === '') {
+      $("#name-info").html("Enter a valid name");
+      return false;
+    }
+    $("#name-info").html("");
+  });
 
-/*
- * The following lines of code call the corresponding validation functions
- * for validating the respective data fields.
- */
+  /*
+   * Guardian Validator
+   */
 
-nam.addEventListener("input", validateName);
-phn.addEventListener("input", validatePhone);
-mailid.addEventListener("input", validateMailId);
-nation.addEventListener("input", validateNation);
-dob.addEventListener("input", validateDOB);
-guardian.addEventListener("input", validateGuardian);
-submitButton.addEventListener("click", function(event){
-  submitForm(event);
+  $("#guardian").on("input",function () {
+    if($("#guardian").val() === "") {
+      $("#guard-info").html("This field is empty");
+      return false;
+    }
+    $("#guard-info").html("");
+  });
+
+  // Nation Validator
+  
+  $("#nationality").on("input",function () {
+    if ($("#nationality").val() === "") {
+      $("#nation-info").html("This field is important");
+      $("#nationality").focus();
+      return false;
+    }
+    $("#nation-info").html("");
+  });
+  
+  
+  // Mail Validator
+
+  $("#mail").on("input",function (){
+    var email = $("#mail").val();
+    if ((email === '') || (email.indexOf("@", 0) < 0) || (email.indexOf(".", 0) < 0)) {
+      $("#minfo").html("Enter valid email");
+      $("#mail").focus();
+      return false;
+    }
+    $("#minfo").html("");
+  });
+  
+  // DOB Validator
+
+  $("#dob").on("input", function () {
+    if ($("#dob").val() === "") {
+      $("#dob-info").html("Enter a valid date");
+      $("#dob").focus();
+      return false;
+    }
+    $("#dob-info").html("");
+  });
+
+  // Phone Number Validator
+  
+  $("#phone").on("input", function () {
+    var phn = $("#phone").val();
+    if (isNaN(phn) || phn.length != 10) {
+      $("#cinfo").html("Enter valid phone number");
+      return false;
+    }
+    $("#cinfo").html("");
+  });
+
+  $("#sub-button").on("click", function(e) {
+    e.preventDefault();
+    // Adding the data to the table
+    var inputs = $("form").serializeArray();    
+    //$("#data").append("<tr>");
+    var txt = $("<tr>");
+    $.each(inputs, function(i, field){
+        $("<td>").html(field.value).appendTo(txt);
+    });
+    $("<td>").html("<button type='button' class='update-bt btn btn-default'>update</button>").appendTo(txt);
+    $("<td>").html("<button type='button' class='delete-bt btn btn-default'>delete</button>").appendTo(txt);
+    $("#data").append(txt);
+    $("#data").removeClass("hide");
+    location.href = "#";
+    location.href = "#data";
+  });
 });
 
-/*
- * The following lines of code define the functions for validating the fields
- */
+$(document).on('click', 'button.delete-bt', function () {
+     $(this).parent().parent().remove();
+     return false;
+ });
  
-/*
- * validate the name field by checking whether it is filled or empty
- */
-
-function validateName() {
-  if(nam.value === '') {
-    document.getElementById("name-info").innerHTML = "Enter a valid name";
-    //nam.focus();
-    return false;
-  }
-  document.getElementById("name-info").innerHTML = "";
-}
-
-
-/*
- * Takes guardian field value and checks if it is empty or filled.
- */
-function validateGuardian() {
-  if(guardian.value === '') {
-    document.getElementById("guard-info").innerHTML = "This field is empty";
-    return false;
-  }
-  document.getElementById("guard-info").innerHTML = "";
-}
-
-function validateNation() {
-  if (nation.value === '') {
-    document.getElementById("nation-info").innerHTML = "This field is important";
-    nation.focus();
-    return false;
-  }
-  document.getElementById("nation-info").innerHTML = "";
-}
-
-function validateMailId(){
-  var email = mailid.value;
-  if ((email === '') || (email.indexOf("@", 0) < 0) || (email.indexOf(".", 0) < 0)) {
-    document.getElementById("minfo").innerHTML = "Enter valid email";
-    mailid.focus();
-    return false;
-  }
-  document.getElementById("minfo").innerHTML = "";
-  
-}
-
-function validateDOB() {
-  if (dob.value === '') {
-    document.getElementById("dob-info").innerHTML = "Enter a valid date";
-    dob.focus();
-    return false;
-  }
-  document.getElementById("dob-info").innerHTML = "";
-  
-}
-
-function validatePhone() {
-  var phn = phone.value;
-  if (isNaN(phn) || phn.length != 10) {
-    document.getElementById("cinfo").innerHTML = "Enter valid phone number";
-    return false;
-  }
-  document.getElementById("cinfo").innerHTML = "";
-}
-
-function submitForm(e) {
-  e.preventDefault();  
-  // Checking the fields once again
-  validateName();
-  validateDOB();
-  validateGuardian();
-  validateMailId();
-  validatePhone();
-  validateNation();
-  
-  
-  // Adding the data to the table
-  var inputs = document.getElementById("student-form").elements;
-  var table = document.getElementById("data");
-  var inputIndex = 0;
-  for (var rwIndex = 0; inputIndex < inputs.length - 2; rwIndex++) {
-    var temp = inputs[inputIndex];
-    if ((temp.type === "radio" || temp.type === "checkbox") && temp.checked === false)
-      rwIndex -= 1;
-    else {
-    var row = table.insertRow(rwIndex);
-    var cell1 = row.insertCell(0);
-    var cell2  = row.insertCell(1);
-    var cell3 = row.insertCell(2);
-    var cell4  = row.insertCell(3);
-    cell1.innerHTML = temp.name;
-    cell2.innerHTML = temp.value;
-    cell3.innerHTML = '<input type="button" value="Update" onclick="updateRow(this)">';
-    cell4.innerHTML = '<input type="button" value="Delete" onclick="deleteRow(this)">';
-    }
-    inputIndex += 1;
-  }
-  location.href = "#";
-  location.href = "#data";
- 
-
-/*
- * The function updates the rows of the table by converting td to input
- */
-function updateRow(r) {
-  var d = r.parentNode.parentNode.childNodes;
-  var tmp = d[1].innerHTML;
-  d[1].innerHTML = '<input type="text"  id="disable" value=' + tmp + ' />';
-  document.getElementById('disable').focus();
-  document.getElementById('disable').onblur = function() {
-    tmp = document.getElementById('disable').value;
-    d[1].innerHTML = tmp;
-  };
-}
-
-function deleteRow(r) {
-    var i = r.parentNode.parentNode.rowIndex;
-    document.getElementById("data").deleteRow(i);
-}
+$(document).on("click", "button.update-bt", function() {
+    console.log($(this).parent().prevAll());
+    
+});
