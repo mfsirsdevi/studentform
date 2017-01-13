@@ -1,83 +1,106 @@
 /*
   file-name: script.js
-  used-for: week 1 assignment of mindifire training
+  used-for: Student Form creation assignment for mindifire training session
   created-by: r s devi prasad
-  description: it is a js file for validating form, creating table from
-  the form data and editing the data from the table.
+  description: the following form is the jquery conversion of the js file written on master
 */
 
-$("document").ready(function(){ 
-  $("#name").on("input",function () {
-    if($("#name").val() === '') {
-      $("#name-info").html("Enter a valid name");
-      return false;
-    }
-    $("#name-info").html("");
-  });
+$("document").ready(function(){
+  $("#name").focus();
 
   /*
-   * Guardian Validator
-   */
-
-  $("#guardian").on("input",function () {
-    if($("#guardian").val() === "") {
-      $("#guard-info").html("This field is empty");
+   * The following functions are used for validation.
+   * They are also called after the submit button is clicked.
+  */
+   
+  // Name Validator
+   
+  var validateName = function(){
+    if($(this).val() === "") {
+      $("#name-info").text("Enter a valid name").show();
       return false;
     }
-    $("#guard-info").html("");
-  });
-
+    $("#name-info").text("valid").show();
+  };
+   
+  // Guardian Validator
+   
+  var guardianValidator = function() {
+    if($(this).val() === "") {
+      $("#guard-info").text("This field is empty");
+      return false;
+    }
+    $("#guard-info").text("valid").show();
+  };
+  
   // Nation Validator
   
-  $("#nationality").on("input",function () {
-    if ($("#nationality").val() === "") {
-      $("#nation-info").html("This field is important");
-      $("#nationality").focus();
+  var validateNation = function() {
+    if ($(this).val() === "") {
+      $("#nation-info").text("This field is important");
+      $(this).focus();
       return false;
     }
-    $("#nation-info").html("");
-  });
-  
+    $("#nation-info").text("valid").show();
+  };
   
   // Mail Validator
-
-  $("#mail").on("input",function (){
-    var email = $("#mail").val();
+  
+  var validateMailId = function(){
+    var email = $(this).val();
     if ((email === '') || (email.indexOf("@", 0) < 0) || (email.indexOf(".", 0) < 0)) {
-      $("#minfo").html("Enter valid email");
-      $("#mail").focus();
+      $("#minfo").text("Enter valid email");
+      $(this).focus();
       return false;
     }
-    $("#minfo").html("");
-  });
+    $("#minfo").text("valid").show();
+  };
   
   // DOB Validator
-
-  $("#dob").on("input", function () {
-    if ($("#dob").val() === "") {
-      $("#dob-info").html("Enter a valid date");
-      $("#dob").focus();
+  
+  var validateDate = function () {
+    if ($(this).val() === "") {
+      $("#dob-info").text("Enter a valid date");
+      $(this).focus();
       return false;
     }
-    $("#dob-info").html("");
-  });
-
+    $("#dob-info").text("valid").show();
+  };
+  
   // Phone Number Validator
   
-  $("#phone").on("input", function () {
-    var phn = $("#phone").val();
+  var validatePhone = function () {
+    var phn = $(this).val();
     if (isNaN(phn) || phn.length != 10) {
-      $("#cinfo").html("Enter valid phone number");
+      $("#cinfo").text("Enter valid phone number").show();
       return false;
     }
-    $("#cinfo").html("");
-  });
+    $("#cinfo").text("valid").show();
+  };
+  
+  // Validating all the fields one by one
+  
+  $("#name").on("input", validateName);
+  $("#guardian").on("input",guardianValidator);
+  $("#nationality").on("input", validateNation);
+  $("#mail").on("input",validateMailId);
+  $("#dob").on("input", validateDate);
+  $("#phone").on("input", validatePhone);
 
   $("#sub-button").on("click", function(e) {
     e.preventDefault();
+    
+    // Validating all the fields before submitting form for action
+    
+    $("#name").focusout(validateName);
+    $("#guardian").on("input",guardianValidator);
+    $("#nationality").on("input", validateNation);
+    $("#mail").on("input",validateMailId);
+    $("#dob").on("input", validateDate);
+    $("#phone").on("input", validatePhone);
+    
     // Adding the data to the table
     var inputs = $("form").serializeArray();    
-    //$("#data").append("<tr>");
     var txt = $("<tr>");
     $.each(inputs, function(i, field){
         $("<td>").html(field.value).appendTo(txt);
@@ -89,14 +112,31 @@ $("document").ready(function(){
     location.href = "#";
     location.href = "#data";
   });
-});
 
-$(document).on('click', 'button.delete-bt', function () {
+  
+  $(document).on('click', 'button.delete-bt', function () {
      $(this).parent().parent().remove();
      return false;
- });
+  });
  
-$(document).on("click", "button.update-bt", function() {
-    console.log($(this).parent().prevAll());
-    
+  $(document).on("click", "button.update-bt", function() {
+    var fieldN;
+    $(this).parent().prevAll().each(function() {
+      var inputs = $("form").serializeArray();
+      if($(this).is("td")){
+        var tdHtml = $(this).text();
+        $.each(inputs, function(i, field){
+          if(tdHtml === field.value)
+            fieldN = field;
+        });
+        var editText = $("<input/>");
+        editText.val(tdHtml);
+        $(this).html(editText);
+      }
+    });
+    $(this).parent().prevAll().each(function() {
+      
+    });
+  });
+
 });
