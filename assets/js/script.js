@@ -8,13 +8,13 @@
 $("document").ready(function(){
   // Name Validator - checks if name field is empty or filled
 
-  function validateName(elem){
+  function validateName(elem, elem2){
     if(!elem) {
-      $("#name-info").text("Enter a valid name").show();
-      $("#name").focus();
+      $(elem2).text("Enter a valid name").show();
+      //$("#name").focus();
       return false;
     }
-    $("#name-info").text("valid").show();
+    $(elem2).text("valid").show();
     return true;
   };
 
@@ -78,7 +78,7 @@ $("document").ready(function(){
   // Validating all the fields one by one
   $("#name").on("input", function(){
     var stuName = $(this).val();
-    validateName(stuName);
+    validateName(stuName, $("#name-info"));
   });
   $("#guardian").on("input",function(){
     var guardianValue = $(this).val();
@@ -107,19 +107,12 @@ $("document").ready(function(){
 
   function validateAll () {
     var iter = 0;
-    //console.log(iter);
-    if(validateName($("#name").val())) iter++;
-    console.log(iter);
+    if(validateName($("#name").val(),$("#name-info"))) iter++;
     if(validatePhone($("#phone").val())) iter++;
-    console.log(iter);
     if(validateDate($("#dob").val())) iter++;
-    console.log(iter);
     if(validateMailId($("#mail").val())) iter++;
-    console.log(iter);
     if(validateNation($("#nationality").val())) iter++;
-    console.log(iter);
     if(guardianValidator($("#guardian").val())) iter++;
-    console.log(iter);
     if (iter === 6)
       return true;
     //console.log(iter);
@@ -132,10 +125,8 @@ $("document").ready(function(){
     var isValid = true;
     // Validating all the fields before submitting form for action
     isValid = validateAll();
-    console.log(isValid);
     // Adding the data to the table
     if (isValid) {
-      console.log("inside if");
       var inputs = $("form").serializeArray();
       var txt = $("<tr>");
       $.each(inputs, function(i, field){
@@ -157,18 +148,15 @@ $("document").ready(function(){
   });
 
   $(document).on("click", "button.update-bt", function() {
-    var fieldN;
     $(this).parent().prevAll().each(function() {
       var inputs = $("form").serializeArray();
       if($(this).is("td")){
-        var tdHtml = $(this).text();
-        $.each(inputs, function(i, field){
-          if(tdHtml === field.value)
-            fieldN = field;
-        });
-        var editText = $("<input/>");
-        editText.val(tdHtml);
-        $(this).html(editText);
+        if ($(this).attr("contenteditable")) {
+          $(this).removeAttr("contenteditable");
+        }
+        else{
+          $(this).attr("contenteditable", true);
+        }
       }
     });
   });
