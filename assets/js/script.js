@@ -115,7 +115,6 @@ $("document").ready(function(){
     if(guardianValidator($("#guardian").val())) iter++;
     if (iter === 6)
       return true;
-    //console.log(iter);
     return false;
   }
   $("#sub-button").on("click", function(e) {
@@ -138,6 +137,10 @@ $("document").ready(function(){
       $("#data").removeClass("hide");
       location.href = "#";
       location.href = "#data";
+    }
+    else {
+      location.href = "#";
+      location.href = "#student-form";
     }
   });
 

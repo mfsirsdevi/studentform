@@ -11,8 +11,8 @@
   <head>
   <meta charset = "utf-8"/>
   <title>Student Registration Form</title>
-  <link type = "text/css" rel = "stylesheet" href = "assets/css/style.css" />
-  <link type = "text/css" rel = "stylesheet" href = "assets/vendors/bootstrap/css/bootstrap.min.css" />
+  <link rel = "stylesheet" href = "assets/css/style.css" />
+  <link rel = "stylesheet" href = "assets/vendors/bootstrap/css/bootstrap.min.css" />
   </head>
   <body>
     <div class="container">
@@ -30,45 +30,45 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="category" class="col-sm-2 control-label">Category: </label>
+            <label class="col-sm-2 control-label">Category: </label>
             <div class="col-sm-7">
-              <select class="form-control" name="Category"  >
+              <select class="form-control" name="category"  >
                 <option value="general">General</option>
                 <option value="others">Others</option>
               </select><br/>
             </div>
           </div>
           <div class="form-group">
-            <label for="gender" class="col-sm-2 control-label">Gender: </label>
+            <label class="col-sm-2 control-label">Gender: </label>
             <label class="radio-inline">
-              <input type="radio" name="Gender" value="male" checked>male
+              <input type="radio" name="gender" value="male" checked>male
             </label>
             <label class="radio-inline">
-              <input type="radio" name="Gender" value="female">female
+              <input type="radio" name="gender" value="female">female
             </label>
             <label class="radio-inline">
-              <input type="radio" name="Gender" value="other">other<br/>
+              <input type="radio" name="gender" value="other">other<br/>
             </label>
           </div>
           <div class="form-group">
             <label for="dob" class="col-sm-2 control-label">D.O.B: </label>
             <div class="col-sm-7">
-              <input type="date" id="dob" class="form-control" name="D.O.B"/>
+              <input type="text" id="dob" class="form-control" name="d.o.b"/>
             </div>
             <div class="col-sm-3">
               <span id="dob-info"></span><br/>
             </div>
           </div>
           <div class="form-group">
-            <label for="age" class="col-sm-2 control-label">Age: </label>
+            <label class="col-sm-2 control-label">Age: </label>
             <div class="col-sm-7">
-              <input type="number" class="form-control" name="Age"/><br/>
+              <input type="number" class="form-control" name="age"/><br/>
             </div>
           </div>
           <div class="form-group">
             <label for="nationality" class="col-sm-2 control-label">Nationality: </label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" name="Nationality" id="nationality"/>
+              <input type="text" class="form-control" name="nationality" id="nationality"/>
             </div>
             <div class="col-sm-3">
               <span id="nation-info"></span><br/>
@@ -77,28 +77,28 @@
           <div class="form-group">
             <label for="guardian" class="col-sm-2 control-label">Guardian Name: </label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" name="Guardian" id="guardian"/>
+              <input type="text" class="form-control" name="guardian" id="guardian"/>
             </div>
             <div class="col-sm-3">
               <span id="guard-info"></span><br/>
             </div>
           </div>
           <div class="form-group">
-            <label for="relationship" class="col-sm-2 control-label">Guardian Relation: </label>
+            <label class="col-sm-2 control-label">Guardian Relation: </label>
             <label class="checkbox-inline">
-              <input type="checkbox" value="father" name="Relation" checked>Father
+              <input type="checkbox" value="father" name="relation" checked>Father
             </label>
             <label class="checkbox-inline">
-              <input type="checkbox" value="mother" name="Relation">Mother
+              <input type="checkbox" value="mother" name="relation">Mother
             </label>
             <label class="checkbox-inline">
-              <input type="checkbox" value="guardian" name="Relation">Guardian<br/>
+              <input type="checkbox" value="guardian" name="relation">Guardian<br/>
             </label>
           </div>
           <div class="form-group">
-            <label for="institute" class="col-sm-2 control-label">Institute last attended: </label>
+            <label class="col-sm-2 control-label">Institute last attended: </label>
             <div class="col-sm-7">
-              <input type="text" class="form-control" name="Institute"/><br/>
+              <input type="text" class="form-control" name="institute"/><br/>
             </div>
           </div>
         </div>
