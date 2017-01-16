@@ -11,11 +11,11 @@ $("document").ready(function(){
   function validateName(elem){
     if(!elem) {
       $("#name-info").text("Enter a valid name").show();
-      location.href = "#";
-      location.href = "#name-info";
+      $("#name").focus();
       return false;
     }
     $("#name-info").text("valid").show();
+    return true;
   };
 
   // Guardian Validator - checks if guradian field is empty or filled
@@ -23,11 +23,10 @@ $("document").ready(function(){
   function guardianValidator (elem) {
     if(!elem) {
       $("#guard-info").text("This field is empty");
-      location.href = "#";
-      location.href = "#guard-info";
       return false;
     }
     $("#guard-info").text("valid").show();
+    return true;
   };
 
   // Nation Validator - checks if Nationality field is empty or filled
@@ -35,11 +34,10 @@ $("document").ready(function(){
   function validateNation (elem) {
     if (!elem) {
       $("#nation-info").text("This field is important");
-      location.href = "#";
-      location.href = "#nation-info";
       return false;
     }
     $("#nation-info").text("valid").show();
+    return true;
   };
 
   // Mail Validator - checks if MailId field is properly filled or not
@@ -47,11 +45,11 @@ $("document").ready(function(){
   function validateMailId (elem){
     if ((elem === '') || (elem.indexOf("@", 0) < 0) || (elem.indexOf(".", 0) < 0)) {
       $("#minfo").text("Enter valid email");
-      location.href = "#";
-      location.href = "#minfo";
+
       return false;
     }
     $("#minfo").text("valid").show();
+    return true;
   };
 
   // DOB Validator - checks if d.o.b field is properly filled or not
@@ -59,11 +57,11 @@ $("document").ready(function(){
   function validateDate (elem) {
     if (!elem) {
       $("#dob-info").text("Enter a valid date").show();
-      location.href = "#";
-      location.href = "#dob-info";
+
       return false;
     }
     $("#dob-info").text("valid").show();
+    return true;
   };
 
   // Phone Number Validator - checks if phone number is properly entered or not
@@ -71,11 +69,10 @@ $("document").ready(function(){
   function validatePhone (phn) {
     if (isNaN(phn) || phn.length != 10) {
       $("#cinfo").text("Enter valid phone number").show();
-      location.href = "#";
-      location.href = "#cinfo";
       return false;
     }
     $("#cinfo").text("valid").show();
+    return true;
   };
 
   // Validating all the fields one by one
@@ -108,23 +105,37 @@ $("document").ready(function(){
     $("span").text("");
   });
 
-
+  function validateAll () {
+    var iter = 0;
+    //console.log(iter);
+    if(validateName($("#name").val())) iter++;
+    console.log(iter);
+    if(validatePhone($("#phone").val())) iter++;
+    console.log(iter);
+    if(validateDate($("#dob").val())) iter++;
+    console.log(iter);
+    if(validateMailId($("#mail").val())) iter++;
+    console.log(iter);
+    if(validateNation($("#nationality").val())) iter++;
+    console.log(iter);
+    if(guardianValidator($("#guardian").val())) iter++;
+    console.log(iter);
+    if (iter === 6)
+      return true;
+    //console.log(iter);
+    return false;
+  }
   $("#sub-button").on("click", function(e) {
 
     e.preventDefault();
 
     var isValid = true;
     // Validating all the fields before submitting form for action
-    while(isValid) {
-      isValid = validateName($("#name").val());
-      isValid = validatePhone($("#phone").val());
-      isValid = validateDate($("#dob").val());
-      isValid = validateMailId($("#mail").val());
-      isValid = validateNation($("#nationality").val());
-      isValid = guardianValidator($("#guardian").val());
-    }
+    isValid = validateAll();
+    console.log(isValid);
     // Adding the data to the table
     if (isValid) {
+      console.log("inside if");
       var inputs = $("form").serializeArray();
       var txt = $("<tr>");
       $.each(inputs, function(i, field){
