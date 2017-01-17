@@ -115,7 +115,6 @@ $("document").ready(function(){
   }
   $("#sub-button").on("click", function(e) {
     e.preventDefault();
-
     var isValid = true;
     var nameValue = $("#name").val();
     var nameInfo = $("#name-info");
@@ -132,17 +131,7 @@ $("document").ready(function(){
     isValid = validateAll(nameValue, nameInfo, phoneValue, contactInfo, dobValue, dobInfo, mailValue, mailInfo, nationValue, nationInfo, guardianValue, guardianInfo);
     // Adding the data to the table
     if (isValid) {
-      var inputs = $("form").serializeArray();
-      var txt = $("<tr>");
-      $.each(inputs, function(i, field){
-        $("<td>").html(field.value).appendTo(txt);
-      });
-      $("<td>").html("<button type='button' class='update-bt btn btn-default'>edit</button>").appendTo(txt);
-      $("<td>").html("<button type='button' class='delete-bt btn btn-default'>delete</button>").appendTo(txt);
-      $("#data").append(txt);
-      $("#data").removeClass("hide");
-      location.href = "#";
-      location.href = "#data";
+      $("#student-form").submit();
     }
     else {
       location.href = "#";
