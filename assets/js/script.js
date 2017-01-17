@@ -6,74 +6,71 @@
 */
 
 $("document").ready(function(){
-  // Name Validator - checks if name field is empty or filled
 
-  function validateName(elem, elem2){
-    if(!elem) {
-      $(elem2).text("Enter a valid name").show();
-      //$("#name").focus();
+  // Name Validator - checks if name field is empty or filled
+  function validateName(nameValue, fieldId){
+    if(!nameValue) {
+      $(fieldId).text("Enter a valid name").show();
       return false;
     }
-    $(elem2).text("valid").show();
+    $(fieldId).text("valid").show();
     return true;
-  };
+  }
 
   // Guardian Validator - checks if guradian field is empty or filled
 
-  function guardianValidator (elem) {
-    if(!elem) {
-      $("#guard-info").text("This field is empty");
+  function guardianValidator (guardianValue, fieldId) {
+    if(!guardianValue) {
+      $(fieldId).text("This field is empty");
       return false;
     }
-    $("#guard-info").text("valid").show();
+    $(fieldId).text("valid").show();
     return true;
-  };
+  }
 
   // Nation Validator - checks if Nationality field is empty or filled
 
-  function validateNation (elem) {
-    if (!elem) {
-      $("#nation-info").text("This field is important");
+  function validateNation (nationValue, fieldId) {
+    if (!nationValue) {
+      $(fieldId).text("This field is important");
       return false;
     }
-    $("#nation-info").text("valid").show();
+    $(fieldId).text("valid").show();
     return true;
-  };
+  }
 
   // Mail Validator - checks if MailId field is properly filled or not
 
-  function validateMailId (elem){
-    if ((elem === '') || (elem.indexOf("@", 0) < 0) || (elem.indexOf(".", 0) < 0)) {
-      $("#minfo").text("Enter valid email");
-
+  function validateMailId (emailValue, fieldId){
+    if ((emailValue === '') || (emailValue.indexOf("@", 0) < 0) || (emailValue.indexOf(".", 0) < 0)) {
+      $(fieldId).text("Enter valid email");
       return false;
     }
-    $("#minfo").text("valid").show();
+    $(fieldId).text("valid").show();
     return true;
-  };
+  }
 
   // DOB Validator - checks if d.o.b field is properly filled or not
 
-  function validateDate (elem) {
-    if (!elem) {
-      $("#dob-info").text("Enter a valid date").show();
-
+  function validateDate (dateValue, fieldId) {
+    if (!dateValue) {
+      $(fieldId).text("Enter a valid date").show();
       return false;
     }
-    $("#dob-info").text("valid").show();
+    $(fieldId).text("valid").show();
     return true;
-  };
+  }
 
   // Phone Number Validator - checks if phone number is properly entered or not
 
-  function validatePhone (phn) {
+  function validatePhone (phn, fieldId) {
     if (isNaN(phn) || phn.length != 10) {
-      $("#cinfo").text("Enter valid phone number").show();
+      $(fieldId).text("Enter valid phone number").show();
       return false;
     }
-    $("#cinfo").text("valid").show();
+    $(fieldId).text("valid").show();
     return true;
-  };
+  }
 
   // Validating all the fields one by one
   $("#name").on("input", function(){
@@ -82,48 +79,57 @@ $("document").ready(function(){
   });
   $("#guardian").on("input",function(){
     var guardianValue = $(this).val();
-    guardianValidator(guardianValue);
+    guardianValidator(guardianValue, $("#guard-info"));
   });
   $("#nationality").on("input", function(){
     var nationValue = $(this).val();
-    validateNation(nationValue);
+    validateNation(nationValue, $("#nation-info"));
   });
   $("#mail").on("input",function(){
     var mailValue = $(this).val();
-    validateMailId(mailValue);
+    validateMailId(mailValue, $("#minfo"));
   });
   $("#dob").on("input", function () {
     var dobValue = $(this).val();
-    validateDate(dobValue);
+    validateDate(dobValue, $("#dob-info"));
   });
   $("#phone").on("input", function () {
     var phoneNumber = $(this).val();
-    validatePhone(phoneNumber);
+    validatePhone(phoneNumber, $("#cinfo"));
   });
-
   $("#reset-btn").on("click", function(){
     $("span").text("");
   });
 
-  function validateAll () {
+  function validateAll (nameValue, nameInfo, phoneValue, contactInfo, dobValue, dobInfo, mailValue, mailInfo, nationValue, nationInfo, guardianValue, guardianInfo) {
     var iter = 0;
-    if(validateName($("#name").val(),$("#name-info"))) iter++;
-    if(validatePhone($("#phone").val())) iter++;
-    if(validateDate($("#dob").val())) iter++;
-    if(validateMailId($("#mail").val())) iter++;
-    if(validateNation($("#nationality").val())) iter++;
-    if(guardianValidator($("#guardian").val())) iter++;
+    if(validateName(nameValue, nameInfo)) iter++;
+    if(validatePhone(phoneValue, contactInfo)) iter++;
+    if(validateDate(dobValue, dobInfo)) iter++;
+    if(validateMailId(mailValue, mailInfo)) iter++;
+    if(validateNation(nationValue, nationInfo)) iter++;
+    if(guardianValidator(guardianValue, guardianInfo)) iter++;
     if (iter === 6)
       return true;
     return false;
   }
   $("#sub-button").on("click", function(e) {
-
     e.preventDefault();
 
     var isValid = true;
-    // Validating all the fields before submitting form for action
-    isValid = validateAll();
+    var nameValue = $("#name").val();
+    var nameInfo = $("#name-info");
+    var phoneValue = $("#phone").val();
+    var contactInfo = $("#cinfo");
+    var dobValue = $("#dob").val();
+    var dobInfo = $("#dob-info");
+    var mailValue = $("#mail").val();
+    var mailInfo = $("#minfo");
+    var nationValue = $("#nationality").val();
+    var nationInfo = $("#nation-info");
+    var guardianValue = $("#guardian").val();
+    var guardianInfo = $("#guard-info");
+    isValid = validateAll(nameValue, nameInfo, phoneValue, contactInfo, dobValue, dobInfo, mailValue, mailInfo, nationValue, nationInfo, guardianValue, guardianInfo);
     // Adding the data to the table
     if (isValid) {
       var inputs = $("form").serializeArray();
@@ -131,7 +137,7 @@ $("document").ready(function(){
       $.each(inputs, function(i, field){
         $("<td>").html(field.value).appendTo(txt);
       });
-      $("<td>").html("<button type='button' class='update-bt btn btn-default'>update</button>").appendTo(txt);
+      $("<td>").html("<button type='button' class='update-bt btn btn-default'>edit</button>").appendTo(txt);
       $("<td>").html("<button type='button' class='delete-bt btn btn-default'>delete</button>").appendTo(txt);
       $("#data").append(txt);
       $("#data").removeClass("hide");
