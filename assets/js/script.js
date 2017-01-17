@@ -153,7 +153,7 @@ $("document").ready(function(){
   $(document).on("click", "button.update-bt", function() {
     $(this).parent().prevAll().each(function() {
       var inputs = $("form").serializeArray();
-      if($(this).is("td")){
+      if ($(this).is("td")){
         if ($(this).attr("contenteditable")) {
           $(this).removeAttr("contenteditable");
         }
