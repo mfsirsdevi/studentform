@@ -45,7 +45,6 @@ $("document").ready(function(){
   function validateMailId (elem){
     if ((elem === '') || (elem.indexOf("@", 0) < 0) || (elem.indexOf(".", 0) < 0)) {
       $("#minfo").text("Enter valid email");
-
       return false;
     }
     $("#minfo").text("valid").show();
