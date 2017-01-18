@@ -113,6 +113,8 @@ $("document").ready(function(){
       return true;
     return false;
   }
+
+  /*
   $("#sub-button").on("click", function(e) {
     e.preventDefault();
     var isValid = true;
@@ -138,7 +140,7 @@ $("document").ready(function(){
       location.href = "#student-form";
     }
   });
-
+  */
 
   $(document).on('click', 'button.delete-bt', function () {
      $(this).parent().parent().remove();

@@ -1,4 +1,5 @@
 <?php
+  $PageTitle = "Admin Page";
   $user = 'root';
   $password = '';
   $db = 'studentdb';
@@ -35,15 +36,15 @@
   //$conn->close();
  ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Entered Data</title>
-</head>
-<body>
+<?php
+  $PageTitle = "Entered Data";
+  incude_once 'header.php' ;
+ ?>
+   <!-- Start of the body part-->
+    <?php
+      echo "Hello PHP";
+     ?>
+   <!---->
   <?php
-    echo "Hello PHP";
+    include_once 'footer.php' ;
    ?>
-</body>
-</html>

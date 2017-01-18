@@ -1,23 +1,73 @@
 <!--
-  file-name: index.html
+  file-name: index.php
   used-for: Student Form creation assignment for mindifire training session
   created-by: r s devi prasad
   description: it is a html file for creating and validating a student registration form, creating table from
   the form data and editing the data from the table.
 -->
 
-<!DOCTYPE html>
-<html>
-  <head>
-  <meta charset = "utf-8"/>
-  <title>Student Registration Form</title>
-  <link rel = "stylesheet" href = "assets/css/style.css" />
-  <link rel = "stylesheet" href = "assets/vendors/bootstrap/css/bootstrap.min.css" />
-  </head>
-  <body>
+<!-- Header included-->
+<?php
+
+  $PageTitle = "Student Registration Form";
+
+  include_once 'header.php' ;
+
+ ?>
+ <!-- End of including header -->
+
+ <?php
+
+  ob_start();
+  session_start();
+
+  include_once 'dbconnect.php' ;
+
+  $error = false;
+
+  if (isset($_POST['submit'])) {
+
+    $name = trim($_POST['Name']);
+    $category = trim($_POST['category']);
+    $gender = trim($_POST['gender']);
+    $dob = trim($_POST['dob']);
+    $nation = trim($_POST['nationality']);
+    $guardian = trim($_POST['guardian']);
+    $institute = trim($_POST['institute']);
+    $address = trim($_POST['address']);
+    $city = trim($_POST['city']);
+    $state = trim($_POST['state']);
+    $pincode = trim($_POST['pincode']);
+    $email = trim($_POST['user_mail']);
+    $phone = trim($_POST['contact']);
+    $idproof = trim($_POST['proof']);
+
+    if (!$error) {
+      try {
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "INSERT INTO studentdata (studentName, studentCategory, studentGender, studentDob, studentNationality, studentGuardian, studentInstitute, studentAddress, studentCity, studentState, studentPincode, userEmail, studentPhone, studentIdProof) VALUES ('$name', '$category', '$gender', '$dob', '$nation', '$guardian', '$institute', '$address', '$city', '$state', '$pincode', '$email', '$phone', '$idproof')";
+        $conn->exec($sql);
+        echo "New record created";
+      } catch (PDOException $e) {
+          echo $sql . "<br>" . $e->getMessage();
+      }
+    }
+    $conn = null;
+
+    $message = "Your Activation Code";
+    $to=$email;
+    $subject="Activation Code For Student Registration Form";
+    $from = 'rsdevi@mindfiresolutions.com';
+    $body='Please Click On <a href="enterdata.php">This link</a>to activate  your account.';
+    $headers = "From:".$from;
+    mail($to,$subject,$body);
+    echo "An Activation Code Is Sent To You Check You Emails";
+  }
+
+  ?>
     <div class="container">
       <h1>Student Registration Form</h1>
-      <form class="form-horizontal" name="StudentForm" id="student-form" action="enterdata.php" method="post">
+      <form class="form-horizontal" name="StudentForm" id="student-form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
         <div id="applicant-details">
           <h2>Applicant Details</h2>
           <div class = "form-group">
@@ -53,16 +103,10 @@
           <div class="form-group">
             <label for="dob" class="col-sm-2 control-label">D.O.B: </label>
             <div class="col-sm-7">
-              <input type="text" id="dob" class="form-control" name="d.o.b"/>
+              <input type="text" id="dob" class="form-control" name="dob"/>
             </div>
             <div class="col-sm-3">
               <span id="dob-info"></span><br/>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Age: </label>
-            <div class="col-sm-7">
-              <input type="number" class="form-control" name="age"/><br/>
             </div>
           </div>
           <div class="form-group">
@@ -84,19 +128,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label">Guardian Relation: </label>
-            <label class="checkbox-inline">
-              <input type="checkbox" value="father" name="relation" checked>Father
-            </label>
-            <label class="checkbox-inline">
-              <input type="checkbox" value="mother" name="relation">Mother
-            </label>
-            <label class="checkbox-inline">
-              <input type="checkbox" value="guardian" name="relation">Guardian<br/>
-            </label>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Institute last attended: </label>
+            <label class="col-sm-2 control-label">Institute: </label>
             <div class="col-sm-7">
               <input type="text" class="form-control" name="institute"/><br/>
             </div>
@@ -152,51 +184,13 @@
               <input type="text" id="idproof" class="form-control" name="proof"/><br/>
             </div>
           </div>
-          <div class="form-group">
-            <label for="idproofnum" class="col-sm-2 control-label">ID Proof Number: </label>
-            <div class="col-sm-7">
-              <input type="text" id="idproofnum" class="form-control" name="proofnum"/><br/>
-            </div>
-          </div>
         </div>
         <div id="form-btn">
-          <button class="btn btn-primary" id="sub-button" type="submit">Submit</button>
+          <button class="btn btn-primary" id="sub-button" name="submit" type="submit">Submit</button>
           <button id="reset-btn" class="btn btn-danger" type="reset" >Reset</button>
         </div>
       </form>
       </div>
-      <div class="container-fluid">
-        <div class="table-responsive">
-          <table class="table table-bordered hide" id="data">
-            <thead>
-              <tr>
-                <td>Name</td>
-                <td>Category</td>
-                <td>Gender</td>
-                <td>D.O.B</td>
-                <td>Age</td>
-                <td>Nationality</td>
-                <td>Guardian Name</td>
-                <td>Guardian Relation</td>
-                <td>Institute last attended</td>
-                <td>Address Line 1</td>
-                <td>Address Line 2</td>
-                <td>City</td>
-                <td>State</td>
-                <td>Pincode</td>
-                <td>Country</td>
-                <td>E-mail</td>
-                <td>Phone Number</td>
-                <td>ID Proof</td>
-                <td>ID Proof Number</td>
-                <td>Update</td>
-                <td>Delete</td>
-              </tr>
-            </thead>
-          </table>
-        </div>
-      </div>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-      <script src="assets/js/script.js"></script>
-  </body>
-</html>
+      <?php
+        include_once 'footer.php' ;
+       ?>
