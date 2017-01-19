@@ -17,6 +17,7 @@
     header("Location: home.php");
   }
   include_once './config/dbconnect.php';
+  include_once './config/studentform.php';
 
   $error = false;
 
@@ -86,7 +87,7 @@
         unset($name);
         unset($email);
         unset($pass);
-        header("Location: login.php");
+        $studentobj->redirectToUrl("login.php");
       } else {
         $errTyp = "danger";
         $errMSG = "Something went wrong, try again later...";
@@ -98,7 +99,7 @@
 
   <div class="container">
     <h1>Student Registration Form</h1>
-    <form class="form-horizontal" action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+    <form class="form-horizontal" action="<?= $studentobj->selfScriptCall(); ?>" method="post">
       <div class = "form-group">
         <label for="name" class="col-sm-2 control-label">Name: </label>
         <div class="col-sm-7">

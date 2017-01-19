@@ -1,3 +1,10 @@
+<!--
+  file-name: index.php
+  used-for: Student Form creation assignment for mindifire training session
+  created-by: r s devi prasad
+  description: login page of the student App for taking and verifying credentials.
+-->
+
 <?php
 
   $PageTitle = "Student Login Page";
@@ -10,7 +17,6 @@
   session_start();
   require_once './config/dbconnect.php';
 
-  // it will never let you open index(login) page if session is set
   if ( isset($_SESSION['user'])!="" ) {
     header("Location: home.php");
     exit;
@@ -20,7 +26,6 @@
 
   if( isset($_POST['login']) ) {
 
-    // prevent sql injections/ clear user invalid inputs
     $email = trim($_POST['email']);
     $email = strip_tags($email);
     $email = htmlspecialchars($email);
@@ -28,7 +33,6 @@
     $pass = trim($_POST['pass']);
     $pass = strip_tags($pass);
     $pass = htmlspecialchars($pass);
-    // prevent sql injections / clear user invalid inputs
 
     if(empty($email)){
       $error = true;
@@ -47,12 +51,12 @@
     if (!$error) {
 
       $password = hash('sha256', $pass); // password hashing using SHA256
-
-      $res="SELECT studentId, studentName, studentPass FROM studentdata WHERE studentEmail='$email'";
-      $row=$conn->query($res);
-      $count = $row->rowCount(); // if uname/pass correct it returns must be 1 row
-      if( $count == 1 && $row['studentPass']==$password ) {
-        $_SESSION['user'] = $row['studentId'];
+      $res="SELECT studentId, studentName FROM studentdata WHERE studentPass='$password' AND studentEmail='$email'";
+      $stmt=$conn->query($res);
+      $row= $stmt->fetchObject();
+      $count = $stmt->rowCount(); // if uname/pass correct it returns must be 1 row
+      if( $count == 1 ) {
+        $_SESSION['user'] = $row->studentId;
         header("Location: home.php");
       } else {
         $errMSG = "Incorrect Credentials, Try again...";

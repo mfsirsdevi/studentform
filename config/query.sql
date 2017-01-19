@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS `studentdata` (
   `studentName` varchar(30) NOT NULL,
   `studentAdmn` varchar(30) NOT NULL,
   `studentEmail` varchar(30) NOT NULL,
-  `studentPass` varchar(30) NOT NULL,
+  `studentPass` varchar(100) NOT NULL,
   PRIMARY KEY (`studentId`),
   UNIQUE KEY `studentEmail` (`studentEmail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
