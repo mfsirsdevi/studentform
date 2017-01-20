@@ -1,6 +1,6 @@
 <!--
   file-name: register.php
-  used-for: Student Form creation assignment for mindifire training session
+  used-for: Student Form creation assignment for mindfire training session
   created-by: r s devi prasad
   description: registration page of the student App for registering users and admins.
 -->
@@ -13,9 +13,6 @@
 <?php
   ob_start();
   session_start();
-  if( isset($_SESSION['user'])!="" ){
-    header("Location: home.php");
-  }
   include_once './config/dbconnect.php';
   include_once './config/studentform.php';
 
@@ -77,7 +74,6 @@
 
     // if there's no error, continue to signup
     if( !$error ) {
-      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $query = "INSERT INTO studentdata(studentName,studentAdmn, studentEmail,studentPass) VALUES('$name','$admn','$email','$password')";
       $res = $conn->exec($query);
 

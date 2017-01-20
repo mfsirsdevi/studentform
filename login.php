@@ -15,12 +15,7 @@
 
 <?php
   session_start();
-  require_once './config/dbconnect.php';
-
-  if ( isset($_SESSION['user'])!="" ) {
-    header("Location: home.php");
-    exit;
-  }
+  include_once './config/dbconnect.php';
 
   $error = false;
 
@@ -33,6 +28,12 @@
     $pass = trim($_POST['pass']);
     $pass = strip_tags($pass);
     $pass = htmlspecialchars($pass);
+
+    if (isset($_POST['role'])) {
+        # code...
+        $role = $_POST['role'];
+    }
+
 
     if(empty($email)){
       $error = true;
@@ -51,13 +52,15 @@
     if (!$error) {
 
       $password = hash('sha256', $pass); // password hashing using SHA256
-      $res="SELECT studentId, studentName FROM studentdata WHERE studentPass='$password' AND studentEmail='$email'";
+      $res="SELECT studentId, userRole FROM studentdata WHERE studentPass='$password' AND studentEmail='$email'";
       $stmt=$conn->query($res);
       $row= $stmt->fetchObject();
       $count = $stmt->rowCount(); // if uname/pass correct it returns must be 1 row
-      if( $count == 1 ) {
-        $_SESSION['user'] = $row->studentId;
-        header("Location: home.php");
+      if( $count == 1) {
+        $errMSG = "Success... You will be redirected soon.";
+        $_SESSION["user"] = $row->studentId;
+        $url = (($row->userRole) == 'admin') ? "home.php" : "userhome.php";
+        header("Location: $url");
       } else {
         $errMSG = "Incorrect Credentials, Try again...";
       }
@@ -101,6 +104,15 @@
           </span><br/>
         </div>
       </div>
+      <div class="form-group">
+            <label class="col-sm-2 control-label">Type: </label>
+            <label class="radio-inline">
+              <input type="radio" name="role" value="user" checked>user
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="role" value="admin">admin
+            </label>
+          </div>
       <div id="form-btn">
           <button class="btn btn-primary" id="login" name="login" type="submit">Login</button>
       </div>
@@ -109,5 +121,10 @@
       if (isset($errMSG)) {
         echo "$errMSG";
       }
+      /*
+      if (isset($role)) {
+        # code...
+        echo "$role";
+      }*/
      ?>
   </div>

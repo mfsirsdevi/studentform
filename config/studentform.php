@@ -3,6 +3,11 @@
 
     class StudentForm {
 
+        function registerUser() {
+
+
+        }
+
         //-------- Functions for regular actions ---------
         function redirectToURL($url){
             header("Location: $url");

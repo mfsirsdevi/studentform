@@ -1,6 +1,6 @@
 <!--
   file-name: index.php
-  used-for: Student Form creation assignment for mindifire training session
+  used-for: Student Form creation assignment for mindfire training session
   created-by: r s devi prasad
   description: first page of the student App for showing the links for registration and login.
 -->
