@@ -16,6 +16,11 @@
 <?php
   session_start();
   include_once './config/dbconnect.php';
+  if (isset($_SESSION["user"]) && isset($_SESSION["role"])) {
+    $role = $_SESSION["role"];
+    $url = $role == "admin" ? "home.php" : "userhome.php";
+    header($url);
+  }
 
   $error = false;
 
@@ -59,6 +64,7 @@
       if( $count == 1) {
         $errMSG = "Success... You will be redirected soon.";
         $_SESSION["user"] = $row->studentId;
+        $_SESSION["role"] = $row->userRole;
         $url = (($row->userRole) == 'admin') ? "home.php" : "userhome.php";
         header("Location: $url");
       } else {

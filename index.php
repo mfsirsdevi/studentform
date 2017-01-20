@@ -11,6 +11,12 @@
   $PageTitle = "Student Registration App";
   include_once 'header.php' ;
 
+  if (isset($_SESSION["user"]) && isset($_SESSION["role"])) {
+        $role = $_SESSION["role"];
+        $url = $role == "admin" ? "home.php" : "userhome.php";
+        header($url);
+  }
+
  ?>
  <!-- End of including header -->
 

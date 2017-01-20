@@ -12,6 +12,10 @@
   include_once './config/dbconnect.php';
   include_once './config/studentform.php';
 
+  if (!isset($_SESSION["user"]) && !isset($_SESSION["role"])) {
+    header("Location: index.php");
+  }
+
   $id = $_SESSION["user"];
   $sql = "SELECT * FROM studentdata WHERE studentId=:id";
   $stmt = $conn->prepare($sql);
@@ -27,7 +31,7 @@
       <div id="menu">
         <ul>
           <li><a href="information.php">Users</a></li>
-          <li><a href="#">Account Info</a></li>
+          <li><a href="home.php">Account Info</a></li>
           <li><a href="logout.php">Logout</a></li>
         </ul>
       </div>
