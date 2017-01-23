@@ -16,10 +16,12 @@
 <?php
   session_start();
   include_once './config/dbconnect.php';
+  include_once './config/studentform.php';
+
   if (isset($_SESSION["user"]) && isset($_SESSION["role"])) {
     $role = $_SESSION["role"];
     $url = $role == "admin" ? "home.php" : "userhome.php";
-    header($url);
+    $studentobj->redirectToURL($url);
   }
 
   $error = false;

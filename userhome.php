@@ -2,9 +2,11 @@
   $PageTitle = "Home";
   include_once 'header.php';
   include_once './config/dbconnect.php';
+  include_once './config/studentform.php';
+
   session_start();
   if (!isset($_SESSION["user"]) && !isset($_SESSION["role"])) {
-    header("Location: index.php");
+    $studentobj->redirectToURL("login.php");
   }
   $id = $_SESSION["user"];
   $sql = "SELECT * FROM studentdata WHERE studentId=:id";

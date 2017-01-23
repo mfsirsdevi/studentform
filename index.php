@@ -8,13 +8,14 @@
 <!-- Header included-->
 <?php
 
-  $PageTitle = "Student Registration App";
-  include_once 'header.php' ;
+  $PageTitle = "Student Registration Form";
+  include_once 'header.php';
+  include_once './config/studentform.php';
 
   if (isset($_SESSION["user"]) && isset($_SESSION["role"])) {
         $role = $_SESSION["role"];
         $url = $role == "admin" ? "home.php" : "userhome.php";
-        header($url);
+        $studentobj->redirectToURL($url);
   }
 
  ?>

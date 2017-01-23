@@ -6,7 +6,7 @@
 -->
 
 <?php
-  $PageTitle = "Registration Page";
+  $PageTitle = "Student Registration Page";
   include_once 'header.php';
  ?>
 
@@ -19,7 +19,7 @@
     if (isset($_SESSION["user"]) && isset($_SESSION["role"])) {
         $role = $_SESSION["role"];
         $url = $role == "admin" ? "home.php" : "userhome.php";
-        header($url);
+        $studentobj->redirectToURL($url);
     }
 
   $error = false;
@@ -89,7 +89,7 @@
         unset($name);
         unset($email);
         unset($pass);
-        $studentobj->redirectToUrl("login.php");
+        $studentobj->redirectToURL("login.php");
       } else {
         $errTyp = "danger";
         $errMSG = "Something went wrong, try again later...";

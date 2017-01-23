@@ -13,7 +13,7 @@
   include_once './config/studentform.php';
 
   if (!isset($_SESSION["user"]) && !isset($_SESSION["role"])) {
-    header("Location: index.php");
+    $studentobj->redirectToURL("login.php");
   }
 
   $id = $_SESSION["user"];

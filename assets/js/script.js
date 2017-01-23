@@ -13,7 +13,7 @@ $("document").ready(function(){
       $(fieldId).text("Enter a valid name").show();
       return false;
     }
-    $(fieldId).text("valid").show();
+    $(fieldId).text("");
     return true;
   }
 
@@ -24,7 +24,7 @@ $("document").ready(function(){
       $(fieldId).text("This field is empty");
       return false;
     }
-    $(fieldId).text("valid").show();
+    $(fieldId).text("");
     return true;
   }
 
@@ -35,7 +35,7 @@ $("document").ready(function(){
       $(fieldId).text("This field is important");
       return false;
     }
-    $(fieldId).text("valid").show();
+    $(fieldId).text("");
     return true;
   }
 
@@ -46,7 +46,7 @@ $("document").ready(function(){
       $(fieldId).text("Enter valid email");
       return false;
     }
-    $(fieldId).text("valid").show();
+    $(fieldId).text("");
     return true;
   }
 
@@ -57,7 +57,7 @@ $("document").ready(function(){
       $(fieldId).text("Enter a valid date").show();
       return false;
     }
-    $(fieldId).text("valid").show();
+    $(fieldId).text("");
     return true;
   }
 
@@ -68,7 +68,7 @@ $("document").ready(function(){
       $(fieldId).text("Enter valid phone number").show();
       return false;
     }
-    $(fieldId).text("valid").show();
+    $(fieldId).text("");
     return true;
   }
 
@@ -114,7 +114,7 @@ $("document").ready(function(){
     return false;
   }
 
-  /*
+
   $("#sub-button").on("click", function(e) {
     e.preventDefault();
     var isValid = true;
@@ -140,8 +140,8 @@ $("document").ready(function(){
       location.href = "#student-form";
     }
   });
-  */
 
+/*
   $(document).on('click', 'button.delete-bt', function () {
      $(this).parent().parent().remove();
      return false;
@@ -160,4 +160,5 @@ $("document").ready(function(){
       }
     });
   });
+  */
 });

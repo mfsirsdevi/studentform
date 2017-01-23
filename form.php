@@ -5,6 +5,15 @@
   description: form for collecting student and admin additonal information.
 -->
 
+<?php
+    $PageTitle = "Information Form";
+    include_once 'header.php';
+    include_once './config/dbconnect.php';
+    include_once './config/studentform.php';
+ ?>
+
+ <h1>Student Details Form</h1>
+
  <form class="form-horizontal" name="StudentForm" id="student-form" action="" method="post">
         <div id="applicant-details">
           <h2>Applicant Details</h2>
@@ -128,3 +137,7 @@
           <button id="reset-btn" class="btn btn-danger" type="reset" >Reset</button>
         </div>
       </form>
+
+<?php
+    include_once 'footer.php';
+ ?>
