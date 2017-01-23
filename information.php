@@ -1,4 +1,11 @@
 <?php
+  include_once './config/studentform.php';
+  session_start();
+
+  if (!isset($_SESSION["user"]) && !isset($_SESSION["role"])) {
+    $studentobj->redirectToURL("login.php");
+  }
+
   $PageTitle = "Entered Data";
   include_once 'header.php' ;
   include_once './config/dbconnect.php';
@@ -11,11 +18,11 @@
 
    <div class="container">
     <div id="header">
-      <div id="logo">Welcome</div>
+      <div id="logo"><a href="home.php">Welcome</a></div>
       <div id="menu">
         <ul>
           <li><a href="information.php">Users</a></li>
-          <li><a href="#">Account Info</a></li>
+          <li><a href="home.php">Account Info</a></li>
           <li><a href="logout.php">Logout</a></li>
         </ul>
       </div>

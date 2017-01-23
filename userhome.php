@@ -21,7 +21,7 @@
       <div id="logo">Welcome</div>
       <div id="menu">
         <ul>
-          <li><a href="">Account Info</a></li>
+          <li><a href="userhome.php">Account Info</a></li>
           <li><a href="logout.php">Logout</a></li>
         </ul>
       </div>

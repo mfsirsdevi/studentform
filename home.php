@@ -27,7 +27,7 @@
 
   <div class="container">
     <div id="header">
-      <div id="logo">Welcome</div>
+      <div id="logo"><a href="home.php" >Welcome</a></div>
       <div id="menu">
         <ul>
           <li><a href="information.php">Users</a></li>

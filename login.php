@@ -37,7 +37,6 @@
     $pass = htmlspecialchars($pass);
 
     if (isset($_POST['role'])) {
-        # code...
         $role = $_POST['role'];
     }
 
@@ -63,7 +62,7 @@
       $stmt=$conn->query($res);
       $row= $stmt->fetchObject();
       $count = $stmt->rowCount(); // if uname/pass correct it returns must be 1 row
-      if( $count == 1) {
+      if( $count == 1 && ($row->userRole) == $role) {
         $errMSG = "Success... You will be redirected soon.";
         $_SESSION["user"] = $row->studentId;
         $_SESSION["role"] = $row->userRole;
