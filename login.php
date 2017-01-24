@@ -1,5 +1,5 @@
 <!--
-  file-name: index.php
+  file-name: login.php
   used-for: Student Form creation assignment for mindifire training session
   created-by: r s devi prasad
   description: login page of the student App for taking and verifying credentials.
