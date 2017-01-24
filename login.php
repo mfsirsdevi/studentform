@@ -15,7 +15,7 @@
 
 <?php
   session_start();
-  include_once './config/dbconnect.php';
+  //include_once './config/dbconnect.php';
   include_once './config/studentform.php';
   require_once ('./config/filemakerapi/FileMaker.php');
 
