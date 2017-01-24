@@ -1,3 +1,10 @@
+<!--
+  file-name: information.php
+  used-for: Student Form creation assignment for mindifire training session
+  created-by: r s devi prasad
+  description: form for collecting student and admin additonal information.
+-->
+
 <?php
   include_once './config/studentform.php';
   session_start();

@@ -1,3 +1,10 @@
+<!--
+  file-name: userhome.php
+  used-for: Student Form creation assignment for mindifire training session
+  created-by: r s devi prasad
+  description: user home page of the website showing only the user information and logout option.
+-->
+
 <?php
   $PageTitle = "Home";
   include_once 'header.php';
