@@ -13,17 +13,20 @@
     $studentobj->redirectToURL("login.php");
   }
 
-  $PageTitle = "Entered Data";
+  $PageTitle = "Users Data";
   include_once 'header.php' ;
   include_once './config/dbconnect.php';
 
   $sql = "SELECT * FROM studentdata WHERE 1 ORDER BY studentName ";
   $stmt = $conn->query($sql);
   $res = $stmt->fetchAll();
+
+
+
  ?>
    <!-- Start of the body part-->
 
-   <div class="container">
+  <div class="container">
     <div id="header">
       <div id="logo"><a href="home.php">Welcome</a></div>
       <div id="menu">
@@ -42,13 +45,17 @@
               <td>admission</td>
               <td>email</td>
               <td>Id</td>
+              <td>Update</td>
+              <td>Delete</td>
             </tr>
         <?php foreach ($res as $row) {?>
            <tr>
              <td><?php echo $row["studentName"]?></td>
              <td><?php echo $row["studentAdmn"]?></td>
              <td><?php echo $row["studentEmail"]?></td>
-             <td><?php echo $row["studentId"]?></td>
+             <td id="student-id"><?php echo $row["studentId"]?></td>
+             <td><button class="btn btn-default update-bt">Update</button></td>
+             <td><button class="btn btn-default delete-bt">Delete</button></td>
            </tr>
         <?php } ?>
           </table>

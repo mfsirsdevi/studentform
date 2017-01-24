@@ -141,16 +141,32 @@ $("document").ready(function(){
     }
   });
 
-/*
+
   $(document).on('click', 'button.delete-bt', function () {
-     $(this).parent().parent().remove();
-     return false;
+     $(this).parent().prevAll().each(function() {
+       if ($(this).is("#student-id")) {
+         var delId = $(this).attr('id');
+         var $ele = $(this).parent();
+         $.ajax({
+                type:'POST',
+                url:'delete.php',
+                data:{del_id:delId},
+                success: function(data){
+                    if(data){
+                        $ele.fadeOut().remove();
+                        }else{
+                            alert("can't delete the row")
+                            }
+                    }
+
+                })
+       }
+     });
   });
 
   $(document).on("click", "button.update-bt", function() {
     $(this).parent().prevAll().each(function() {
-      var inputs = $("form").serializeArray();
-      if($(this).is("td")){
+      if($(this).is("td") && !$(this).is("#student-id")){
         if ($(this).attr("contenteditable")) {
           $(this).removeAttr("contenteditable");
         }
@@ -160,5 +176,5 @@ $("document").ready(function(){
       }
     });
   });
-  */
+
 });
