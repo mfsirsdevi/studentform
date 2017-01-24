@@ -17,6 +17,14 @@
   session_start();
   include_once './config/dbconnect.php';
   include_once './config/studentform.php';
+  require_once ('./config/filemakerapi/FileMaker.php');
+
+  $fmobj = new FileMaker();
+  $fmobj->setProperty("database", "StudentForm.fmp12");
+  $fmobj->setProperty("hotspec", "http://172.16.9.62");
+  $fmobj->setProperty("username", "admin");
+  $fmobj->setProperty("password", "rsRAJA77352@");
+  $layoutNames = $fmobj->listLayouts();
 
   if (isset($_SESSION["user"]) && isset($_SESSION["role"])) {
     $role = $_SESSION["role"];
@@ -133,5 +141,14 @@
         # code...
         echo "$role";
       }*/
+     ?>
+
+    <?php
+        echo $fmobj->getMinServerVersion();
+        if (isset($layoutNames)) {
+            foreach ($layoutNames as $names) {
+                echo $names->getName();
+            }
+        }
      ?>
   </div>

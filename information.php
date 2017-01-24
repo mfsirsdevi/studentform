@@ -1,3 +1,10 @@
+<!--
+  file-name: information.php
+  used-for: Student Form creation assignment for mindifire training session
+  created-by: r s devi prasad
+  description: information page of the student App for fetching all the student data inside the student table and showing the data to the admin.
+-->
+
 <?php
   include_once './config/studentform.php';
   session_start();

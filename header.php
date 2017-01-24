@@ -1,3 +1,9 @@
+<!--
+  file-name: header.php
+  used-for: Student Form creation assignment for mindifire training session
+  created-by: r s devi prasad
+  description: header of the application containing all the header information and stylesheet references.
+-->
 
 <!DOCTYPE html>
 <html>

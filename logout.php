@@ -1,3 +1,10 @@
+<!--
+  file-name: logout.php
+  used-for: Student Form creation assignment for mindifire training session
+  created-by: r s devi prasad
+  description: logout page of the application which removes all the cache and ends all the sessions logged till now.
+-->
+
 <?php
 
     session_start();
