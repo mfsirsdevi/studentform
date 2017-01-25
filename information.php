@@ -47,12 +47,13 @@
             </tr>
         <?php foreach ($res as $row) {?>
            <tr>
-             <td><?php echo $row["studentName"]?></td>
-             <td><?php echo $row["studentAdmn"]?></td>
-             <td><?php echo $row["studentEmail"]?></td>
-             <td><?php echo $row["studentId"]?></td>
-             <td><button class="btn btn-default update-bt">Update</button></td>
-             <?php echo '<td id="delete'.$row["studentId"].'"><button class="btn btn-default delete-bt">Delete</button></td>';
+             <td id="studentName"><?php echo $row["studentName"]?></td>
+             <td id="studentAdmn"><?php echo $row["studentAdmn"]?></td>
+             <td id="studentEmail"><?php echo $row["studentEmail"]?></td>
+             <td id="student<?php echo $row["studentId"]?>"><?php echo $row["studentId"]?></td>
+             <?php
+                 echo '<td id="update'.$row["studentId"].'"><button class="btn btn-default update-bt">Update</button></td>';
+                 echo '<td id="delete'.$row["studentId"].'"><button class="btn btn-default delete-bt">Delete</button></td>';
              ?>
            </tr>
         <?php } ?>

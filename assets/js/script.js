@@ -169,7 +169,6 @@ $("document").ready(function(){
         if(data === "YES"){
           $ele.fadeOut().remove();
         } else {
-            console.log(data);
             alert("can't delete the row");
           }
       }
@@ -177,10 +176,28 @@ $("document").ready(function(){
   });
 
   $(document).on("click", "button.update-bt", function() {
+    var str_id= $(this).parent().attr('id').match(/\d+/);
+    var upd_id = parseInt(str_id[0]);
+    var sid = "student"+upd_id;
+    var $ele = $(this).parent().parent();
     $(this).parent().prevAll().each(function() {
-      if($(this).is("td") && !$(this).is("#student-id")){
+      if($(this).is("td") && !$(this).is("#"+sid)){
         if ($(this).attr("contenteditable")) {
           $(this).removeAttr("contenteditable");
+          var colId = $(this).attr('id');
+          var editVal = $(this).text();
+          $.ajax({
+            type:'POST',
+            url:'update.php',
+            data:'column='+colId+'&editVal='+editVal+'&id='+upd_id,
+            success: function(data){
+              if(data === "YES"){
+                alert("success!");
+              } else {
+                alert("can't update the row");
+              }
+            }
+          })
         }
         else{
           $(this).attr("contenteditable", true);
