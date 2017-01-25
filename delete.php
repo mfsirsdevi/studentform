@@ -1,8 +1,15 @@
 <?php
-    include('./config/dbconnect.php');
-    $number = $_POST['delId'];
-    $sql = "DELETE FROM studentdata WHERE studentId =:id";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindValue(":id", $number);
-    $stmt->execute();
+    $number = $_POST['del_id'];
+    if (isset($number)) {
+        include_once './config/dbconnect.php';
+        $sql = "DELETE FROM studentdata WHERE studentId =:id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(":id", $number);
+        if ($stmt->execute()) {
+            # code...
+            echo "YES";
+        }else {
+            echo "NO";
+        }
+    }
 ?>

@@ -1,6 +1,6 @@
 <!--
   file-name: logout.php
-  used-for: Student Form creation assignment for mindifire training session
+  used-for: Student Form creation assignment for mindfire training session
   created-by: r s devi prasad
   description: logout page to clear all the cache and delete the user session in the website.
 -->

@@ -1,11 +1,12 @@
-<!--
+<?php
+/*
   file-name: dbconnect.php
-  used-for: Student Form creation assignment for mindifire training session
+  used-for: Student Form creation assignment for mindfire training session
   created-by: r s devi prasad
   description: php page containing all the important information about the database with which the app is linked to.
--->
+*/
 
-<?php
+
 
   $servername = "localhost";
   $username = "root";

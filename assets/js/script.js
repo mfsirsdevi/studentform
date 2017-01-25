@@ -1,6 +1,6 @@
 /*
   file-name: script.js
-  used-for: Student Form creation assignment for mindifire training session
+  used-for: Student Form creation assignment for mindfire training session
   created-by: r s devi prasad
   description: the following form is the jquery conversion of the js file written on master
 */
@@ -72,11 +72,26 @@ $("document").ready(function(){
     return true;
   }
 
+  function validateAdmn(admn, fieldId) {
+    if (isNaN(admn) || admn.length < 2) {
+        $(fieldId).text("Enter valid Admission Number").show();
+        return false;
+    }
+    $(fieldId).text("");
+    return true;
+  }
+
   // Validating all the fields one by one
   $("#name").on("input", function(){
     var stuName = $(this).val();
     validateName(stuName, $("#name-info"));
   });
+
+  $("#admn").on("input", function() {
+      var stuAdmn = $(this).val();
+      validateAdmn(stuAdmn, $("#admninfo"));
+  });
+
   $("#guardian").on("input",function(){
     var guardianValue = $(this).val();
     guardianValidator(guardianValue, $("#guard-info"));
@@ -143,25 +158,22 @@ $("document").ready(function(){
 
 
   $(document).on('click', 'button.delete-bt', function () {
-     $(this).parent().prevAll().each(function() {
-       if ($(this).is("#student-id")) {
-         var delId = $(this).attr('id');
-         var $ele = $(this).parent();
-         $.ajax({
-                type:'POST',
-                url:'delete.php',
-                data:{del_id:delId},
-                success: function(data){
-                    if(data){
-                        $ele.fadeOut().remove();
-                        }else{
-                            alert("can't delete the row")
-                            }
-                    }
-
-                })
-       }
-     });
+    var str_id= $(this).parent().attr('id').match(/\d+/);
+    var del_id = parseInt(str_id[0]);
+    var $ele = $(this).parent().parent();
+    $.ajax({
+      type:'POST',
+      url:'delete.php',
+      data:{del_id: del_id},
+      success: function(data){
+        if(data === "YES"){
+          $ele.fadeOut().remove();
+        } else {
+            console.log(data);
+            alert("can't delete the row");
+          }
+      }
+    })
   });
 
   $(document).on("click", "button.update-bt", function() {

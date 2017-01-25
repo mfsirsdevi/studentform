@@ -1,6 +1,6 @@
 <!--
   file-name: login.php
-  used-for: Student Form creation assignment for mindifire training session
+  used-for: Student Form creation assignment for mindfire training session
   created-by: r s devi prasad
   description: login page of the student App for taking and verifying credentials.
 -->
@@ -124,6 +124,8 @@
           <button class="btn btn-primary" id="login" name="login" type="submit">Login</button>
       </div>
     </form>
+      <h3>New User?</h3>
+      <a class="btn btn-primary" href="register.php">Sign Up</a>
     <?php
       if (isset($errMSG)) {
         echo "$errMSG";

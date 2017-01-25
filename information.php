@@ -1,11 +1,11 @@
-<!--
+<?php
+  /*
   file-name: information.php
-  used-for: Student Form creation assignment for mindifire training session
+  used-for: Student Form creation assignment for mindfire training session
   created-by: r s devi prasad
   description: form for collecting student and admin additonal information.
--->
+  */
 
-<?php
   include_once './config/studentform.php';
   session_start();
 
@@ -20,9 +20,6 @@
   $sql = "SELECT * FROM studentdata WHERE 1 ORDER BY studentName ";
   $stmt = $conn->query($sql);
   $res = $stmt->fetchAll();
-
-
-
  ?>
    <!-- Start of the body part-->
 
@@ -53,9 +50,10 @@
              <td><?php echo $row["studentName"]?></td>
              <td><?php echo $row["studentAdmn"]?></td>
              <td><?php echo $row["studentEmail"]?></td>
-             <td id="student-id"><?php echo $row["studentId"]?></td>
+             <td><?php echo $row["studentId"]?></td>
              <td><button class="btn btn-default update-bt">Update</button></td>
-             <td><button class="btn btn-default delete-bt">Delete</button></td>
+             <?php echo '<td id="delete'.$row["studentId"].'"><button class="btn btn-default delete-bt">Delete</button></td>';
+             ?>
            </tr>
         <?php } ?>
           </table>

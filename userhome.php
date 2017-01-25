@@ -1,6 +1,6 @@
 <!--
   file-name: userhome.php
-  used-for: Student Form creation assignment for mindifire training session
+  used-for: Student Form creation assignment for mindfire training session
   created-by: r s devi prasad
   description: user home page of the website showing only the user information and logout option.
 -->

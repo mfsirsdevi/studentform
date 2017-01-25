@@ -122,7 +122,7 @@
           <input type="text" id="admn" class = "form-control" name="admn"/>
         </div>
         <div class="col-sm-3">
-          <span id="adminfo"></span><br/>
+          <span id="admninfo"></span><br/>
         </div>
       </div>
       <div class = "form-group">
@@ -157,4 +157,6 @@
         <button id="reset-btn" class="btn btn-danger" type="reset" >Reset</button>
       </div>
     </form>
+    <h3>Registered User?</h3>
+      <a class="btn btn-primary" href="login.php">Sign In</a>
   </div>
