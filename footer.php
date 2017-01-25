@@ -1,6 +1,6 @@
 <!--
   file-name: footer.php
-  used-for: Student Form creation assignment for mindifire training session
+  used-for: Student Form creation assignment for mindfire training session
   created-by: r s devi prasad
   description: footer of the web page containing all the js files' data.
 -->

@@ -1,15 +1,14 @@
-<!--
-  file-name: login.php
-  used-for: Student Form creation assignment for mindifire training session
-  created-by: r s devi prasad
-  description: login page of the student App for taking and verifying credentials.
--->
-
 <?php
 
   $PageTitle = "Student Login Page";
-
   include_once 'header.php' ;
+
+    /*
+    file-name: login.php
+    used-for: Student Form creation assignment for mindfire training session
+    created-by: r s devi prasad
+    description: login page of the student App for taking and verifying credentials.
+    */
 
  ?>
 
