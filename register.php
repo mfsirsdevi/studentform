@@ -1,11 +1,11 @@
-<!--
-  file-name: register.php
-  used-for: Student Form creation assignment for mindfire training session
-  created-by: r s devi prasad
-  description: registration page of the student App for registering users and admins.
--->
-
 <?php
+    /*
+    file-name: register.php
+    used-for: Student Form creation assignment for mindfire training session
+    created-by: r s devi prasad
+    description: registration page of the student App for registering users and admins.
+    */
+
   $PageTitle = "Student Registration Page";
   include_once 'header.php';
  ?>
