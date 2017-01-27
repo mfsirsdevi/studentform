@@ -1,27 +1,23 @@
-<!--
-  file-name: home.php
-  used-for: Student Form creation assignment for mindfire training session
-  created-by: r s devi prasad
-  description: home page of the student App for showing to the users and admins.
--->
-
 <?php
   session_start();
   $PageTitle = "Home";
   include_once 'header.php';
-  include_once './config/dbconnect.php';
-  include_once './config/studentform.php';
+  include_once './config/config.php';
+    /*
+     * File Name: home.php
+     * Used For: Student Form creation assignment for mindfire training session
+     * Created By: R S DEVI PRASAD
+     * Description: home page of the student App for showing to the users and admins.
+  */
 
   if (!isset($_SESSION["user"]) && !isset($_SESSION["role"])) {
     $studentobj->redirectToURL("login.php");
   }
 
   $id = $_SESSION["user"];
-  $sql = "SELECT * FROM studentdata WHERE studentId=:id";
-  $stmt = $conn->prepare($sql);
-  $stmt->bindValue(":id", $id);
-  $stmt->execute();
-  $result = $stmt->fetchAll();
+  $request = $studentobj->connection->newFindCommand('StudentForm');
+  $request->addFindCriterion('studentId','=='.$id);
+  $result = $request->execute();
  ?>
 
 
@@ -36,25 +32,23 @@
         </ul>
       </div>
     </div>
-    <?php if (count($result) > 0) { ?>
+    <?php if (!(FileMaker::isError($result))) { ?>
         <div class="table-responsive">
           <table class="table table-bordered">
-            <?php foreach ($result as $row) { ?>
+            <?php
+                $records = $result->getRecords();
+                foreach ($records as $record) { ?>
               <tr>
                 <td>name</td>
-                <td><?php echo $row['studentName']?></td>
+                <td><?php echo $record->getField('studentName')?></td>
               </tr>
               <tr>
                 <td>admn</td>
-                <td><?php echo $row['studentAdmn']?></td>
+                <td><?php echo $record->getField('studentAdmn')?></td>
               </tr>
               <tr>
                 <td>email</td>
-                <td><?php echo $row['studentEmail']?></td>
-              </tr>
-              <tr>
-                <td>Id</td>
-                <td><?php echo $row['studentId']?></td>
+                <td><?php echo $record->getField('studentEmail')?></td>
               </tr>
             <?php } ?>
           </table>

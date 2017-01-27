@@ -1,7 +1,9 @@
 <?php
-
-  $PageTitle = "Student Login Page";
-  include_once 'header.php' ;
+    session_start();
+    $PageTitle = "Student Login Page";
+    //include config file
+    include_once './config/config.php';
+    include_once 'header.php' ;
 
     /*
     file-name: login.php
@@ -10,33 +12,6 @@
     description: login page of the student App for taking and verifying credentials.
     */
 
- ?>
-
-<?php
-  session_start();
-  //include_once './config/dbconnect.php';
-  include_once './config/studentform.php';
-  require_once ('./config/filemakerapi/FileMaker.php');
-
-  $fmobj = new FileMaker(
-    'StudentForm.fmp12',
-    '172.16.9.62',
-    'admin',
-    'rsRAJA77352@'
-  );
-  // $fmobj->setProperty("database", "StudentForm.fmp12");
-  // $fmobj->setProperty("hostspec", "http://172.16.9.62");
-  // $fmobj->setProperty("username", "admin");
-  // $fmobj->setProperty("password", "rsRAJA77352@");
-  $layoutNames = $fmobj->listLayouts();
-  if (FileMaker::isError($layoutNames)) {
-    echo $layoutNames->message;
-    exit;
-  } else {
-    echo '<pre>';
-    print_r($layoutNames);
-    exit;
-  }
 
   if (isset($_SESSION["user"]) && isset($_SESSION["role"])) {
     $role = $_SESSION["role"];
@@ -46,54 +21,47 @@
 
   $error = false;
 
-  if( isset($_POST['login']) ) {
-
-    $email = trim($_POST['email']);
-    $email = strip_tags($email);
-    $email = htmlspecialchars($email);
-
-    $pass = trim($_POST['pass']);
-    $pass = strip_tags($pass);
-    $pass = htmlspecialchars($pass);
-
-    if (isset($_POST['role'])) {
-        $role = $_POST['role'];
-    }
-
-
-    if(empty($email)){
-      $error = true;
-      $emailError = "Please enter your email address.";
-    } else if ( !filter_var($email,FILTER_VALIDATE_EMAIL) ) {
-      $error = true;
-      $emailError = "Please enter valid email address.";
-    }
-
-    if(empty($pass)){
-      $error = true;
-      $passError = "Please enter your password.";
-    }
-
-    // if there's no error, continue to login
-    if (!$error) {
-
-      $password = hash('sha256', $pass); // password hashing using SHA256
-      $res="SELECT studentId, userRole FROM studentdata WHERE studentPass='$password' AND studentEmail='$email'";
-      $stmt=$conn->query($res);
-      $row= $stmt->fetchObject();
-      $count = $stmt->rowCount(); // if uname/pass correct it returns must be 1 row
-      if( $count == 1 && ($row->userRole) == $role) {
-        $errMSG = "Success... You will be redirected soon.";
-        $_SESSION["user"] = $row->studentId;
-        $_SESSION["role"] = $row->userRole;
-        $url = (($row->userRole) == 'admin') ? "home.php" : "userhome.php";
-        header("Location: $url");
-      } else {
-        $errMSG = "Incorrect Credentials, Try again...";
+  if (isset($_POST['login'])) {
+      $email = $studentobj->Sanitize($_POST['email']);
+      $pass = $studentobj->Sanitize($_POST['pass']);
+      if (isset($_POST['role'])) {
+          $role = $studentobj->Sanitize($_POST['role']);
       }
 
-    }
+      if (empty($email)){
+          $error = true;
+          $emailError = "Please enter your email address.";
+      } else if ( !filter_var($email,FILTER_VALIDATE_EMAIL) ) {
+          $error = true;
+          $emailError = "Please enter valid email address.";
+      }
 
+      if (empty($pass)){
+          $error = true;
+          $passError = "Please enter your password.";
+      }
+
+    // if there's no error, continue to login
+      if (!$error) {
+          $password = hash('sha256', $pass); // password hashing using SHA256
+          $request = $studentobj->connection->newFindCommand('StudentForm');
+          $request->addFindCriterion('studentEmail', '=='.$email);
+          $request->addFindCriterion('studentPass', $password);
+          $request->addFindCriterion('userRole', $role);
+          $result = $request->execute();
+        if (FileMaker::isError($result)) {
+            $errMSG = "Incorrect credentials. Try again...";
+        } else {
+            $records = $result->getRecords();
+            $errMSG = "Success!";
+            foreach ($records as $record) {
+              $_SESSION["user"] = $record->getField('studentId');
+              $_SESSION["role"] = $record->getField('userRole');
+              $url = ($record->getField('userRole') == 'admin') ? "home.php" : "userhome.php";
+              $studentobj->redirectToURL($url);
+            }
+        }
+      }
   }
 ?>
 
@@ -148,19 +116,9 @@
       if (isset($errMSG)) {
         echo "$errMSG";
       }
-      /*
-      if (isset($role)) {
-        # code...
-        echo "$role";
-      }*/
      ?>
-
-    <?php
-        echo $fmobj->getMinServerVersion();
-        if (isset($layoutNames)) {
-            foreach ($layoutNames as $names) {
-                echo $names->getName();
-            }
-        }
-     ?>
+     <div>
+       <h3>New User?</h3>
+       <a class="btn btn-primary" href="register.php">Sign Up</a>
+     </div>
   </div>

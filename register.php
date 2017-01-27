@@ -1,47 +1,32 @@
-<!--
-  file-name: register.php
-  used-for: Student Form creation assignment for mindfire training session
-  created-by: r s devi prasad
-  description: registration page of the student App for registering users and admins.
--->
-
 <?php
-  $PageTitle = "Student Registration Page";
-  include_once 'header.php';
- ?>
+    session_start();
+    $PageTitle = "Student Registration Page";
+    include_once 'header.php';
+    include_once './config/config.php';
+    /*
+     * File Name: register.php
+     * Used For: Student Form creation assignment for mindfire training session
+     * Created By: R S DEVI PRASAD
+     * Description: registration page of the student App for registering users and admins.
+     */
 
-<?php
-  ob_start();
-  session_start();
-  include_once './config/dbconnect.php';
-  include_once './config/studentform.php';
-
+    // Check previous session and redirect to the home page accordingly
     if (isset($_SESSION["user"]) && isset($_SESSION["role"])) {
         $role = $_SESSION["role"];
         $url = $role == "admin" ? "home.php" : "userhome.php";
         $studentobj->redirectToURL($url);
     }
 
+
   $error = false;
 
   if ( isset($_POST['submit']) ) {
 
     // clean user inputs to prevent sql injections
-    $name = trim($_POST['name']);
-    $name = strip_tags($name);
-    $name = htmlspecialchars($name);
-
-    $admn = trim($_POST['admn']);
-    $admn = strip_tags($admn);
-    $admn = htmlspecialchars($admn);
-
-    $email = trim($_POST['email']);
-    $email = strip_tags($email);
-    $email = htmlspecialchars($email);
-
-    $pass = trim($_POST['pass']);
-    $pass = strip_tags($pass);
-    $pass = htmlspecialchars($pass);
+    $name = $studentobj->Sanitize($_POST['name']);
+    $admn = $studentobj->Sanitize($_POST['admn']);
+    $email = $studentobj->Sanitize($_POST['email']);
+    $pass = $studentobj->Sanitize($_POST['pass']);
 
     // basic name validation
     if (empty($name)) {
@@ -80,10 +65,14 @@
 
     // if there's no error, continue to signup
     if( !$error ) {
-      $query = "INSERT INTO studentdata(studentName,studentAdmn, studentEmail,studentPass) VALUES('$name','$admn','$email','$password')";
-      $res = $conn->exec($query);
+      $record = $studentobj->connection->createRecord('StudentRegister');
+      $record->setField('studentName', $name);
+      $record->setField('studentAdmn', $admn);
+      $record->setField('studentEmail', $email);
+      $record->setField('studentPass', $password);
+      $result = $record->commit();
 
-      if ($res) {
+      if ($result) {
         $errTyp = "success";
         $errMSG = "Successfully registered, you may login now";
         unset($name);
@@ -157,4 +146,14 @@
         <button id="reset-btn" class="btn btn-danger" type="reset" >Reset</button>
       </div>
     </form>
+    <?php
+        if (isset($errMSG)) {
+          # code...
+          echo "$errMSG";
+        }
+     ?>
+     <div>
+       <h3>Registered User?</h3>
+       <a class="btn btn-primary" href="login.php">Sign In</a>
+     </div>
   </div>

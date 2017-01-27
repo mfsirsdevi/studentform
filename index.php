@@ -1,25 +1,22 @@
-<!--
-  file-name: index.php
-  used-for: Student Form creation assignment for mindfire training session
-  created-by: r s devi prasad
-  description: first page of the student App for showing the links for registration and login.
--->
-
-<!-- Header included-->
 <?php
+    session_start();
+    $PageTitle = "Student Registration Form";
+    include_once 'header.php';
+    include_once './config/config.php';
 
-  $PageTitle = "Student Registration Form";
-  include_once 'header.php';
-  include_once './config/studentform.php';
+    /*
+     * File Name: index.php
+     * Used For: Student Form creation assignment for mindfire training session
+     * Created By: r s devi prasad
+     * Description: first page of the student App for showing the links for registration and login.
+     */
 
-  if (isset($_SESSION["user"]) && isset($_SESSION["role"])) {
+    if (isset($_SESSION["user"]) && isset($_SESSION["role"])) {
         $role = $_SESSION["role"];
         $url = $role == "admin" ? "home.php" : "userhome.php";
         $studentobj->redirectToURL($url);
-  }
-
+    }
  ?>
- <!-- End of including header -->
 
  <div class="container">
    <h1>Student Registration Site</h1>
@@ -29,8 +26,6 @@
      <li> <a href="login.php">Login</a> </li>
    </ul>
  </div>
- <!-- Footer started -->
 <?php
     include_once 'footer.php' ;
  ?>
- <!-- End of footer -->
