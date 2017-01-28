@@ -1,12 +1,10 @@
 <?php
-
     /*
-    file-name: studentform.php
-    used-for: Student Form creation assignment for mindfire training session
-    created-by: r s devi prasad
-    description: the student form class in which all the functionalities are being added to accomodate OOP structure.
-    */
-
+     * File Name: studentform.php
+     * Used For: Student Form creation assignment for mindfire training session
+     * Created By: r s devi prasad
+     * Description: the student form class in which all the functionalities are being added to accomodate OOP structure.
+     */
 
     class StudentForm {
 
@@ -24,7 +22,13 @@
         function selfScriptCall () {
             return htmlentities($_SERVER['PHP_SELF']);
         }
+
+        function Sanitize($data) {
+            $retvar = trim($data);
+            $retvar = strip_tags($retvar);
+            $retvar = htmlspecialchars($retvar);
+            return $retvar;
+        }
     }
 
-    $studentobj = new StudentForm();
  ?>

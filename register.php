@@ -27,21 +27,10 @@
   if ( isset($_POST['submit']) ) {
 
     // clean user inputs to prevent sql injections
-    $name = trim($_POST['name']);
-    $name = strip_tags($name);
-    $name = htmlspecialchars($name);
-
-    $admn = trim($_POST['admn']);
-    $admn = strip_tags($admn);
-    $admn = htmlspecialchars($admn);
-
-    $email = trim($_POST['email']);
-    $email = strip_tags($email);
-    $email = htmlspecialchars($email);
-
-    $pass = trim($_POST['pass']);
-    $pass = strip_tags($pass);
-    $pass = htmlspecialchars($pass);
+    $name = $studentobj->Sanitize($_POST['name']);
+    $admn = $studentobj->Sanitize($_POST['admn']);
+    $email = $studentobj->Sanitize($_POST['email']);
+    $pass = $studentobj->Sanitize($_POST['pass']);
 
     // basic name validation
     if (empty($name)) {

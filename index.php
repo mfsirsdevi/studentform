@@ -10,7 +10,7 @@
 
   $PageTitle = "Student Registration Form";
   include_once 'header.php';
-  include_once './config/studentform.php';
+  include_once './config/config.php';
 
   if (isset($_SESSION["user"]) && isset($_SESSION["role"])) {
         $role = $_SESSION["role"];
