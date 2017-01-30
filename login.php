@@ -122,3 +122,7 @@
        <a class="btn btn-primary" href="register.php">Sign Up</a>
      </div>
   </div>
+
+  <?php
+      include_once 'footer.php';
+   ?>
