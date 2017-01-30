@@ -9,8 +9,7 @@
   session_start();
   $PageTitle = "Home";
   include_once 'header.php';
-  include_once './config/dbconnect.php';
-  include_once './config/studentform.php';
+  include_once './config/config.php';
 
   if (!isset($_SESSION["user"]) && !isset($_SESSION["role"])) {
     $studentobj->redirectToURL("login.php");

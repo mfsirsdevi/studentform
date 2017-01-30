@@ -6,7 +6,6 @@
   description: form for collecting student and admin additonal information.
   */
 
-  include_once './config/studentform.php';
   session_start();
 
   if (!isset($_SESSION["user"]) && !isset($_SESSION["role"])) {
@@ -15,7 +14,7 @@
 
   $PageTitle = "Users Data";
   include_once 'header.php' ;
-  include_once './config/dbconnect.php';
+  include_once './config/config.php';
 
   $sql = "SELECT * FROM studentdata WHERE 1 ORDER BY studentName ";
   $stmt = $conn->query($sql);

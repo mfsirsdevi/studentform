@@ -13,8 +13,7 @@
 <?php
   ob_start();
   session_start();
-  include_once './config/dbconnect.php';
-  include_once './config/studentform.php';
+  include_once './config/config.php';
 
     if (isset($_SESSION["user"]) && isset($_SESSION["role"])) {
         $role = $_SESSION["role"];
@@ -24,7 +23,7 @@
 
   $error = false;
 
-  if ( isset($_POST['submit']) ) {
+  if (isset($_POST['submit'])) {
 
     // clean user inputs to prevent sql injections
     $name = $studentobj->Sanitize($_POST['name']);

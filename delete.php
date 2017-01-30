@@ -1,7 +1,7 @@
 <?php
     $number = $_POST['del_id'];
     if (isset($number)) {
-        include_once './config/dbconnect.php';
+        include_once './config/config.php';
         $sql = "DELETE FROM studentdata WHERE studentId =:id";
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(":id", $number);

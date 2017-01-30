@@ -14,8 +14,7 @@
 
 <?php
   session_start();
-  include_once './config/dbconnect.php';
-  include_once './config/studentform.php';
+  include_once './config/config.php';
 
   if (isset($_SESSION["user"]) && isset($_SESSION["role"])) {
     $role = $_SESSION["role"];
