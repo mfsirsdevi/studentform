@@ -1,6 +1,6 @@
 <?php
-    if(isset($_POST['name']) && isset($_POST['admn']) && isset($_POST['email']) && isset($_POST['pass']))
-    {
+    session_start();
+    if(isset($_POST['name']) && isset($_POST['admn']) && isset($_POST['email']) && isset($_POST['role'])){
         // include Database connection file
         include("./config/config.php");
 
@@ -8,18 +8,16 @@
         $name = $studentobj->Sanitize($_POST['name']);
         $admn = $studentobj->Sanitize($_POST['admn']);
         $email = $studentobj->Sanitize($_POST['email']);
-        $pass = $studentobj->Sanitize($_POST['pass']);
+        $role = $studentobj->Sanitize($_POST['role']);
 
-        $password = hash('sha256', $pass);
-
-        $record = $studentobj->connection->createRecord('StudentRegister');
+        $record = $studentobj->connection->createRecord('StudentForm');
         $record->setField('studentName', $name);
         $record->setField('studentAdmn', $admn);
         $record->setField('studentEmail', $email);
-        $record->setField('studentPass', $password);
+        $record->setField('userRole', $role);
         $result = $record->commit();
-        if ($result) {
-            echo "1 Record Added!";
+        if (FileMaker::isError($result)) {
+            echo "problem executing the request";
         }
     }
 ?>

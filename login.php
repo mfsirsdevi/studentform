@@ -57,6 +57,7 @@
             foreach ($records as $record) {
               $_SESSION["user"] = $record->getField('studentId');
               $_SESSION["role"] = $record->getField('userRole');
+              $_SESSION["userId"] = $record->getRecordId();
               $url = ($record->getField('userRole') == 'admin') ? "home.php" : "userhome.php";
               $studentobj->redirectToURL($url);
             }
@@ -107,7 +108,7 @@
             <label class="radio-inline">
               <input type="radio" name="role" value="admin">admin
             </label>
-          </div>
+      </div>
       <div id="form-btn">
           <button class="btn btn-primary" id="login" name="login" type="submit">Login</button>
       </div>

@@ -6,7 +6,6 @@
     $str = $_POST['id'];
     preg_match_all('!\d+!', $str, $matches);
     $var = implode('', $matches[0]);
-    echo "$var";
 
     // delete User
     $deleteRecord = $studentobj->connection->newDeleteCommand('StudentForm', $var);

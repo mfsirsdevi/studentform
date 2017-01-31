@@ -13,6 +13,7 @@
   if (!isset($_SESSION["user"]) && !isset($_SESSION["role"])) {
     $studentobj->redirectToURL("login.php");
   }
+  $fmId = $_SESSION["userId"];
 
   $request = $studentobj->connection->newFindAllCommand('StudentForm');
   $request->addSortRule('studentName', 1);
@@ -38,23 +39,26 @@
         <table class="table table-bordered">
             <thead>
               <th>Name</th>
-              <th>admission</th>
-              <th>email</th>
+              <th>Admission Number</th>
+              <th>Email</th>
+              <th>Role</th>
               <th>Update</th>
               <th>Delete</th>
             </thead>
     <?php if (!(FileMaker::isError($result))) {
             $records = $result->getRecords();
-            foreach ($records as $record) { ?>
-           <tr>
-             <td><?php echo $record->getField('studentName') ?></td>
-             <td><?php echo $record->getField('studentAdmn') ?></td>
-             <td><?php echo $record->getField('studentEmail') ?></td>
-             <?php
-                 echo '<td><button id="upd'.$record->getRecordId().'" class="btn btn-warning updatebt">Update</button></td>
-             <td><button id="del'.$record->getRecordId().'" class="btn btn-danger deletebt">Delete</button></td>';
-              ?>
-           </tr>
+            foreach ($records as $record) {
+                if ($record->getRecordId() !== $fmId) { ?>
+                    <tr>
+                      <td><?php echo $record->getField('studentName') ?></td>
+                      <td><?php echo $record->getField('studentAdmn') ?></td>
+                      <td><?php echo $record->getField('studentEmail') ?></td>
+                      <td><?php echo $record->getField('userRole') ?></td>
+                      <?php
+                         echo '<td><button id="upd'.$record->getRecordId().'" class="btn btn-warning updatebt">Update</button></td><td><button id="del'.$record->getRecordId().'" class="btn btn-danger deletebt">Delete</button></td>';
+                      ?>
+                    </tr>
+                <?php } ?>
         <?php } ?>
     <?php } ?>
         </table>
@@ -71,26 +75,30 @@
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <label for="name">Name: </label>
+              <label for="name">Name </label>
               <input type="text" id="name" class="form-control" />
               <span></span>
             </div>
 
             <div class="form-group">
-              <label for="admn">Admission Number: </label>
+              <label for="admn">Admission Number </label>
               <input type="text" id="admn" class="form-control" />
               <span></span>
             </div>
 
             <div class="form-group">
-              <label for="email">Email Address: </label>
+              <label for="email">Email Address </label>
               <input type="text" id="email" class="form-control" />
               <span></span>
             </div>
             <div class="form-group">
-              <label for="pass">Password: </label>
-              <input type="password" id="pass" class="form-control" />
-              <span></span>
+              <label >Role:  </label>
+              <div>
+                <select class="form-control" name="role" id="role">
+                  <option value="general">Admin</option>
+                  <option value="others">User</option>
+                </select><br/>
+              </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -100,6 +108,37 @@
         </div>
       </div>
     </div>
+    <!-- Modal - Update User details -->
+    <div class="modal fade" id="update_user_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Update</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="update-name">First Name</label>
+              <input type="text" id="update-name" class="form-control"/>
+            </div>
+            <div class="form-group">
+              <label for="update-admn">Admission Number</label>
+              <input type="text" id="update-admn" class="form-control"/>
+            </div>
+            <div class="form-group">
+              <label for="update-email">Email Address</label>
+              <input type="text" id="update-email" class="form-control"/>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary save-btn">Save Changes</button>
+            <input type="hidden" id="hidden_user_id">
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- // Modal -->
   </div>
 
    <!--End of Body-->

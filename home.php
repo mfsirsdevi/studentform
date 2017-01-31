@@ -15,6 +15,7 @@
   }
 
   $id = $_SESSION["user"];
+  $fmId = $_SESSION["userId"];
   $request = $studentobj->connection->newFindCommand('StudentForm');
   $request->addFindCriterion('studentId','=='.$id);
   $result = $request->execute();
