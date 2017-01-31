@@ -6,6 +6,12 @@
 */
 
 $("document").ready(function(){
+  var url = window.location;
+  // Will only work if string in href matches with location
+  // Will also work for relative and absolute hrefs
+  $('ul.nav a').filter(function() {
+      return this.href == url;
+  }).parent().toggleClass('active');
 
   // Name Validator - checks if name field is empty or filled
   function validateName(nameValue, fieldId){
