@@ -14,6 +14,7 @@
     $studentobj->redirectToURL("login.php");
   }
   $fmId = $_SESSION["userId"];
+  $parentId = $_SESSION["user"];
 
   $request = $studentobj->connection->newFindAllCommand('StudentForm');
   $request->addSortRule('studentName', 1);
@@ -41,7 +42,7 @@
         <li><a href="logout.php">Logout</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+  </div><!-- /.container -->
 </nav>
   <div class="container">
     <div id="secondary-nav">
@@ -56,18 +57,19 @@
               <th>Role</th>
               <th>Update</th>
               <th>Delete</th>
+              <th>View</th>
             </thead>
     <?php if (!(FileMaker::isError($result))) {
             $records = $result->getRecords();
             foreach ($records as $record) {
-                if ($record->getRecordId() !== $fmId) { ?>
+                if ($record->getRecordId() !== $fmId && $record->getField('parentUserId') === $parentId) { ?>
                     <tr>
                       <td><?php echo $record->getField('studentName') ?></td>
                       <td><?php echo $record->getField('studentAdmn') ?></td>
                       <td><?php echo $record->getField('studentEmail') ?></td>
                       <td><?php echo $record->getField('userRole') ?></td>
                       <?php
-                         echo '<td><button id="upd'.$record->getRecordId().'" class="btn btn-warning updatebt">Update</button></td><td><button id="del'.$record->getRecordId().'" class="btn btn-danger deletebt">Delete</button></td>';
+                         echo '<td><button id="upd'.$record->getRecordId().'" class="btn btn-warning updatebt">Update</button></td><td><button id="del'.$record->getRecordId().'" class="btn btn-danger delete-btn">Delete</button></td><td><button id="view'.$record->getRecordId().'" type="button" class="btn btn-default view-details"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></button></td>';
                       ?>
                     </tr>
                 <?php } ?>
@@ -83,7 +85,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Add New Record</h4>
+            <h4 class="modal-title" id="myModalLabel">Add New Student</h4>
           </div>
           <div class="modal-body">
             <div class="form-group">
@@ -107,15 +109,16 @@
               <label >Role:  </label>
               <div>
                 <select class="form-control" name="role" id="role">
-                  <option value="general">Admin</option>
-                  <option value="others">User</option>
+                  <option value="general">admin</option>
+                  <option value="others">user</option>
                 </select><br/>
               </div>
             </div>
+            <input type="hidden" id="hidden_parent_id" value="<?php echo "$parentId"; ?>">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button id="record-btn" type="button" class="btn btn-primary">Add Record</button>
+            <button id="record-btn" type="button" class="btn btn-primary">Add User</button>
           </div>
         </div>
       </div>
@@ -150,6 +153,53 @@
         </div>
       </div>
     </div>
+    <div class="modal fade" id="delete_user_modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Delete User</h4>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to delete user? &hellip;</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+            <button type="button" class="btn btn-primary deletebt">Yes</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="modal fade" id="user_details_modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">User Details</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table table-bordered">
+              <tr>
+                <td><strong>Name</strong></td>
+                <td id="name-details"></td>
+              </tr>
+              <tr>
+                <td ><strong>Admission Number</strong></td>
+                <td id="admn-details"></td>
+              </tr>
+              <tr>
+                <td ><strong>Email</strong></td>
+                <td id="email-details"></td>
+              </tr>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 <!-- // Modal -->
   </div>
 

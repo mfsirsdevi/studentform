@@ -35,19 +35,37 @@ $(document).ready(function() {
     return true;
   }
 
+  $(".view-details").on("click", function() {
+    var suffix = $(this).attr('id').match(/\d+/);
+    var rowId = parseInt(suffix[0]);
+    $.post("readRecord.php", {
+            id: rowId
+        },
+        function (data, status) {
+            // PARSE json data
+            var user = JSON.parse(data);
+            // Adding existing values to the modal popup fields
+            $("#name-details").append(user.studentName);
+            $("#admn-details").append(user.studentAdmn);
+            $("#email-details").append(user.studentEmail);
+        }
+    );
+    $("#user_details_modal").modal("show");
+  });
+
   $("#record-btn").on("click", function() {
     // get values
     var name = $("#name").val();
     var admn = $("#admn").val();
     var email = $("#email").val();
-    var pass = $("#pass").val();
+    var parentId = $("#hidden_parent_id").val();
     var role = $('#role option:selected').text();
     // Add record
     $.post("addRecord.php", {
         name: name,
         admn: admn,
         email: email,
-        pass: pass,
+        parent: parentId,
         role: role
     }, function (data, status) {
         // close the popup
@@ -64,8 +82,14 @@ $(document).ready(function() {
     });
   });
 
+  $(".delete-btn").on("click", function() {
+    var btid = $(this).attr('id');
+    $('.deletebt').attr('id', btid);
+    $("#delete_user_modal").modal("show");
+  });
+
   $(".deletebt").on("click", function() {
-    var conf = confirm("Are you sure, do you really want to delete User?");
+    var conf = true;
     var btid = $(this).attr('id');
     if (conf == true) {
         $.post("deleteRecord.php", {

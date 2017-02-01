@@ -31,7 +31,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="home.php">srm</a>
+      <a class="navbar-brand" href="home.php">Brand</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -42,14 +42,19 @@
         <li><a href="logout.php">Logout</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+  </div><!-- /.container -->
 </nav>
   <div class="container">
-    <?php if (!(FileMaker::isError($result))) { ?>
+    <?php if (!(FileMaker::isError($result))) {
+        $records = $result->getRecords();
+        $firstName = explode(' ', trim($records[0]->getField('studentName')))[0]
+      ?>
+        <div id="secondary-nav">
+          <h2 class="pull-left">Welcome <strong><?php echo $firstName ?>!</strong></h2>
+        </div>
         <div class="table-responsive">
           <table class="table table-bordered">
             <?php
-                $records = $result->getRecords();
                 foreach ($records as $record) { ?>
               <tr>
                 <td>name</td>
@@ -66,9 +71,44 @@
             <?php } ?>
           </table>
         </div>
+        <?php echo '<button id="upd'.$record->getRecordId().'" class="btn btn-warning updatebt">Update</button>' ?>
     <?php } ?>
+    <div class="modal fade" id="update_user_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Update</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="update-name">First Name</label>
+              <input type="text" id="update-name" class="form-control"/>
+            </div>
+            <div class="form-group">
+              <label for="update-admn">Admission Number</label>
+              <input type="text" id="update-admn" class="form-control"/>
+            </div>
+            <div class="form-group">
+              <label for="update-email">Email Address</label>
+              <input type="text" id="update-email" class="form-control"/>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary save-btn">Save Changes</button>
+            <input type="hidden" id="hidden_user_id">
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- // Modal -->
   </div>
 
  <?php
-  include_once 'footer.php';
-  ?>
+    function customPageFooter()
+    { ?>
+      <script type="text/javascript" src="assets/js/information.js"></script>
+  <?php }
+    include_once 'footer.php' ;
+   ?>

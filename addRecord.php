@@ -9,12 +9,14 @@
         $admn = $studentobj->Sanitize($_POST['admn']);
         $email = $studentobj->Sanitize($_POST['email']);
         $role = $studentobj->Sanitize($_POST['role']);
+        $parentId = $studentobj->Sanitize($_POST['parent']);
 
         $record = $studentobj->connection->createRecord('StudentForm');
         $record->setField('studentName', $name);
         $record->setField('studentAdmn', $admn);
         $record->setField('studentEmail', $email);
         $record->setField('userRole', $role);
+        $record->setField('parentUserId', $parentId);
         $result = $record->commit();
         if (FileMaker::isError($result)) {
             echo "problem executing the request";
