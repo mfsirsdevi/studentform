@@ -45,9 +45,9 @@ $(document).ready(function() {
             // PARSE json data
             var user = JSON.parse(data);
             // Adding existing values to the modal popup fields
-            $("#name-details").append(user.studentName);
-            $("#admn-details").append(user.studentAdmn);
-            $("#email-details").append(user.studentEmail);
+            $("#name-details").html(user.studentName);
+            $("#admn-details").html(user.studentAdmn);
+            $("#email-details").html(user.studentEmail);
         }
     );
     $("#user_details_modal").modal("show");
