@@ -61,8 +61,11 @@
             </thead>
     <?php if (!(FileMaker::isError($result))) {
             $records = $result->getRecords();
+            $recordsCount = 0;
             foreach ($records as $record) {
-                if ($record->getRecordId() !== $fmId && $record->getField('parentUserId') === $parentId) { ?>
+                if ($record->getRecordId() !== $fmId && $record->getField('parentUserId') === $parentId) {
+                    $recordsCount = 1;
+                  ?>
                     <tr>
                       <td><?php echo $record->getField('studentName') ?></td>
                       <td><?php echo $record->getField('studentAdmn') ?></td>
@@ -73,7 +76,10 @@
                       ?>
                     </tr>
                 <?php } ?>
-        <?php } ?>
+        <?php }
+            if ($recordsCount === 0) { ?>
+              <tr>No users to show</tr>
+            <?php } ?>
     <?php } ?>
         </table>
     </div>
